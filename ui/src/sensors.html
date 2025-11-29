@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/sensors.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/roslibjs/1.1.0/roslib.min.js"></script>
+    <title>Sensors</title>
+</head>
+<body>
+    <div class="header bordered">
+        <div class="header-bar">
+            <h1>İTÜ RAKE SENSÖR VERİ İSTASYONU</h1>
+        </div>
+        <div class="header-img">
+            <img src="static/rake.png">
+        </div>
+    </div>
+    
+    <div class="sensors">
+        <div class="sensor-table-2 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    Paralel
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Meridyen
+                </p>
+            </div>
+            <div class="row-title">
+                <p>
+                    GPS
+                </p>
+            </div>
+            <div class="table-cell">
+                <p id="gps_lat">
+                    alınamadı
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="gps_long">
+                    alınmadı
+                </p>
+            </div>
+        </div>
+        <div class="sensor-table-3 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    A_x
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    A_y
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    A_z
+                </p>
+            </div>
+            <div class="row-title">
+                <p>
+                    IMU
+                </p>
+            </div>
+            <div class="table-cell">
+                <p id="imu_a_x">
+                    alınamadı
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="imu_a_y">
+                    alınamadı
+                </p>
+            </div>
+            <div class="table-cell">
+                <p id="imu_a_z">
+                    alınamadı
+                </p>
+            </div>
+        </div>
+        <div class="sensor-table-2 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    Lineer x
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Angular z
+                </p>
+            </div>
+
+            <div class="row-title">
+                <p>
+                    Hız
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="cmd_linear_x">
+                    alınamadı
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="cmd_angular_z">
+                    alınamadı
+                </p>
+            </div>
+        </div>
+        <div class="sensor-table-3 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    Açısal x
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Açısal y
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Açısal z
+                </p>
+            </div>
+            <div class="row-title">
+                <p>
+                    IMU
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="imu_ang_x">
+                   alınamadı
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="imu_ang_y">
+                    alınamadı
+                </p>
+            </div>
+            <div class="table-cell">
+                <p id="imu_ang_z">
+                    alınamadı
+                </p>
+            </div>
+        </div>
+    </div>
+           
+    <div class="container">
+        <div class="status-bar bordered">
+            <div class="status-item">
+                <div class="status-card">
+                    <div class="status-title">
+                        <h2>
+                            Teknofest 2024
+                        </h2>
+                    </div>
+                    <div class="status-img">
+                        <img src="static/teknofest.png">
+                    </div>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title" >
+                    <h2 id="e-stop-sign">
+                        E-stop
+                    </h2>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2 id="sim-time">
+                        Simtime
+                    </h2>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2 id="connection-status">
+                        Connection
+                    </h2>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2 id="drive-mode-text">
+                        Manuel Sürüş
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="actions bordered">
+            <h3 class="gui-title">Komutlar</h3>
+            <button class="gui-button ban-e-stop active-manuel active-autonomous" onclick="EstopEnterButton()">E-stop Gir</button>
+            <button class="gui-button active-manuel active-autonomous active-e-stop" id="exit-e-stop-button" onclick="EstopExitButton()" disabled>E-stop Çık</button>       
+            <button class="gui-button ban-manuel ban-e-stop active-autonomous" id="goToGoalButton" onclick="openGoToGoalWindow()">Hedefe Git</button>
+            <button class="gui-button ban-e-stop active-manuel active-autonomous" onclick="ChangeModeButton()">Mod Değiş</button>
+            <h3 class="gui-title">Bağlantılar</h3>
+            <a class="gui-link" href="joy.html">Kontrol</a>
+            <a class="gui-link" href="wounded.html">Yaralılar</a>
+        </div>
+        <div class="cam1 bordered">
+            <div class="gui-text">
+                <p>Front Camera</p>
+            </div>
+            <img src="http://192.168.79.147:8080/stream?topic=/front_detection_camera/front_detection_camera_raw_image" style="width:100%;height:400px;object-fit: cover;"/>
+        </div>
+        <div class="cam3 bordered">
+            <div class="gui-text">
+                <p>Back Camera</p>
+            </div>
+            <img src="http://192.168.79.147:8080/stream?topic=/back_detection_camera/back_detection_camera_raw_image" style="width:100%;height:400px;object-fit: cover;">
+
+        </div>
+        <div class="sidebar bordered">
+            <img src="static/rake.png">
+            <h3 class="gui-title">Ön Kamera</h3>
+            <input class="ban-e-stop active-autonomous active-manuel" type="range" min="1" max="100" value="50" class="slider">
+            <h3 class="gui-title">Arka Kamera</h3>
+            <input class="ban-e-stop active-autonomous active-manuel" type="range" min="1" max="100" value="50" class="slider">
+        </div>
+        
+        <div class="cam2 bordered">
+            <div class="gui-text">
+                <p>Front Detection Camera</p>
+            </div>
+            <img src="http://192.168.79.147:8080/stream?topic=/yolov8/front_annotated_image" style="width:100%;height:400px;object-fit: cover;">
+            <!-- <div class="gui-cam">
+                
+            </div> -->
+        </div>
+        <div class="cam4 bordered">
+            <div class="gui-text">
+                <p>Back Detection</p>
+            </div>
+            <img src="http://192.168.79.147:8080/stream?topic=/yolov8/back_annotated_image" style="width:100%;height:400px;object-fit: cover;">
+        </div>
+    </div>
+    <script type="text/javascript">
+        var ros = new ROSLIB.Ros({
+            url : 'ws://192.168.79.147:9090'
+        });
+
+        ros.on('connection', function() {
+            console.log('Connected to websocket server.');
+            document.getElementById("connection-status").innerText = "Bağlantı Kurulu"
+
+            drive_mode_client.mode = "manuel";
+            handle_interface_mode();
+        });
+
+        ros.on('error', function(error) {
+            console.log('Error connecting to websocket server: ', error);
+            document.getElementById("connection-status").innerText = "Bağlantı Kopuk"
+        });
+
+        ros.on('close', function() {
+            console.log('Connection to websocket server closed.');
+        });
+
+        gps_client = {
+            lat: 0.0,
+            long: 0.0,
+            msg_time: 0.0,
+            listener: new ROSLIB.Topic({
+                ros: ros,
+                name: '/gps/fix',
+                messageType: 'sensor_msgs/NavSatFix' 
+            })
+        };
+        gps_client.listener.subscribe(function(message){
+            // console.log("gps message: " + message.lat + "," + message.long)
+            gps_client.lat = Number(message.latitude.toFixed(6)), gps_client.long = Number(message.longitude.toFixed(6));
+            gps_client.msg_time = Number(time_client.unix_time.toFixed(6));
+
+            assign_gps_data();
+        });
+        imu_client = {
+            ang_vel: {
+                x: 0.0,
+                y: 0.0,
+                z: 0.0,
+            },
+            lin_acc: {
+                x: 0.0,
+                y: 0.0,
+                z: 0.0,
+            },
+            msg_time: 0.0,
+            listener: new ROSLIB.Topic({
+                ros: ros,
+                name: '/imu/data',
+                messageType: 'sensor_msgs/Imu' 
+            })
+        };
+        imu_client.listener.subscribe(function(message){
+            // console.log("imu message: " + "angular_vel" + message.angular_velocity.x + "," + message.angular_velocity.y + "," + message.angular_velocity.z );
+            // console.log("imu message: " + "linear_acc" + message.linear_acceleration.x + "," + message.linear_acceleration.y + "," + message.linear_acceleration.z );
+
+            imu_client.ang_vel.x  = Number(message.angular_velocity.x.toFixed(6));
+            imu_client.ang_vel.y  = Number(message.angular_velocity.y.toFixed(6));
+            imu_client.ang_vel.z  = Number(message.angular_velocity.z.toFixed(6));
+
+            imu_client.lin_acc.x = Number(message.linear_acceleration.x.toFixed(6));
+            imu_client.lin_acc.y = Number(message.linear_acceleration.y.toFixed(6));
+            imu_client.lin_acc.z = Number(message.linear_acceleration.z.toFixed(6));
+
+            imu_client.msg_time = Number(time_client.unix_time);
+
+            assign_imu_data();
+        });
+        cmd_vel_client = {
+            lin_x:0.0,
+            ang_z:0,
+            msg_time: 0.0,
+            listener: new ROSLIB.Topic({
+                ros: ros,
+                name: '/cmd_vel',
+                messageType: 'geometry_msgs/Twist' 
+            })
+        };
+        cmd_vel_client.listener.subscribe(function(message){
+            // console.log("cmd_vel_msg: " + message.linear.x + "," + message.angular.z)
+            cmd_vel_client.lin_x = Number(message.linear.x.toFixed(4));
+            cmd_vel_client.ang_z = Number(message.angular.z.toFixed(4));
+
+            assign_cmd_vel_data();
+        });
+
+        time_client = {
+            unix_time: 0,
+            time_string: "",
+            listener: new ROSLIB.Topic({
+                ros: ros,
+                name: "/unix_time",
+                messageType: "std_msgs/Int32"
+            })
+        }
+        time_client.listener.subscribe(function(message){
+            time_client.unix_time = message.data;
+            time_client.time_string = unix_to_time_string(message.data);
+
+            document.getElementById("sim-time").innerText = time_client.time_string;
+        })
+
+        drive_mode_client = {
+            mode: "" ,
+            node_handle: new ROSLIB.Topic({
+                ros: ros,
+                name: "/drive_mode",
+                messageType: "std_msgs/String"
+            })
+        };
+        
+        wounded_img_client = new ROSLIB.Topic({
+            ros: ros,
+            name: "yolov8/wounded_image",
+            messageType: "rake_ai/GpsImage"
+        }) 
+        // wounded_img_client.subscribe(function(message){
+        //     //add a new card to wounded-gallery 
+        // })
+        var actionClient = new ROSLIB.ActionClient({
+            ros: ros,
+            serverName: '/move_base',
+            actionName: 'move_base_msgs/MoveBaseAction'
+         });
+
+        function assign_imu_data(){
+            document.getElementById("imu_a_x").innerText = imu_client.lin_acc.x;
+            document.getElementById("imu_a_y").innerText = imu_client.lin_acc.y;
+            document.getElementById("imu_a_z").innerText = imu_client.lin_acc.z;
+
+            document.getElementById("imu_ang_x").innerText = imu_client.ang_vel.x;
+            document.getElementById("imu_ang_y").innerText = imu_client.ang_vel.y;
+            document.getElementById("imu_ang_z").innerText = imu_client.ang_vel.z;
+        }
+        function assign_gps_data(){
+            document.getElementById("gps_lat").innerText = gps_client.lat;
+            document.getElementById("gps_long").innerText = gps_client.long;
+        }
+        function assign_cmd_vel_data(){
+            document.getElementById("cmd_linear_x").innerText = cmd_vel_client.lin_x / 100;
+            document.getElementById("cmd_angular_z").innerText = cmd_vel_client.ang_z;
+        }
+
+
+        //UTILITY FUNCTIONS
+        function unix_to_time_string(UNIX_timestamp){
+            var a = new Date(UNIX_timestamp * 1000);
+            var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            var year = a.getFullYear();
+            var month = months[a.getMonth()];
+            var date = a.getDate();
+            var hour = a.getHours();
+            var min = a.getMinutes();
+            var sec = a.getSeconds();
+            var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+            
+            return time;
+        }
+        // window.addEventListener('load', () => {
+        //     drive_mode_client.node_handle.publish("manuel");
+        // });
+
+    </script>
+    <script>
+        const mode_array = ["e-stop", "manuel", "autonomous"];
+
+        function handle_interface_mode(){
+            interface_mode = drive_mode_client.mode;
+
+            var mode_message  = new ROSLIB.Message({
+                data: drive_mode_client.mode
+            });
+
+            drive_mode_client.node_handle.publish(mode_message);
+
+            console.log("DRIVE MODE CLIENT MODE DATA: " + drive_mode_client.mode);
+            
+            for(let i=0; i < mode_array.length; i++){
+                current_mode = mode_array[i];
+                if(current_mode == interface_mode){
+                    enable_elements(current_mode);
+                }
+                else{
+                    disable_elements(current_mode);
+                }
+            }
+
+            if(interface_mode == "e-stop"){
+                document.getElementById("e-stop-sign").innerText = "E-stop Aktif";
+                document.getElementById("exit-e-stop-button").disabled=false;
+                stop_the_vehicle();
+            }
+            else if(interface_mode == "manuel"){
+                document.getElementById("drive-mode-text").innerText = "Manuel Sürüş";
+                document.getElementById("e-stop-sign").innerText = "E-stop Pasif";
+                document.getElementById("exit-e-stop-button").disabled=true;
+                cancel_movebase_goal();
+            }
+            else{
+                document.getElementById("drive-mode-text").innerText = "Otonom Sürüş";
+                document.getElementById("e-stop-sign").innerText = "E-stop Pasif";
+                document.getElementById("exit-e-stop-button").disabled=true;
+            }
+            console.log("Interface handler finished successfully->mode set to " + interface_mode);
+        }
+        var actionClient = new ROSLIB.ActionClient({
+            ros: ros,
+            serverName: '/move_base',
+            actionName: 'move_base_msgs/MoveBaseAction'
+         });
+         var GoalServiceClient = new ROSLIB.Service({
+            ros: ros,
+            name: "go_to_gps",
+            serviceType: "outdoor_waypoint_nav/GoToGps"
+        })
+        function cancel_movebase_goal(){
+            if(actionClient){
+                actionClient.cancel();
+            }
+            console.log("move_base action goal is canceled.");
+        }
+        function stop_the_vehicle(){
+            //We're not handling cmd_vel_msg filtering here, it's handled in rake_web script cmd_vel_pub
+            console.log("Stopped the vehicle, current cmd_vel: " + cmd_vel_client.lin_x + "," + cmd_vel_client.ang_z);
+        }
+        function disable_elements(mode){
+            button_query = "button." + "ban-" + mode;
+            input_query = "input." + "ban-" + mode;
+            
+            const button_list = document.querySelectorAll(button_query);
+            const input_list = document.querySelectorAll(input_query);
+
+            for(let i=0; i < button_list.length; i++){
+                button_list[i].disabled = true;
+            }
+            for(let i=0; i < input_list.length; i++){
+                input_list[i].disabled = true;
+            }
+
+            console.log("Elements of " +  mode + "mode" + "disabled");
+        }
+        function enable_elements(mode){
+            button_query = "button." + "active-" + mode;
+            input_query = "input." + "active-" + mode;
+
+            const button_list = document.querySelectorAll(button_query);
+            const input_list = document.querySelectorAll(input_query);
+
+            for(let i=0; i < button_list.length; i++){
+                button_list[i].disabled = false;
+            }
+            for(let i=0; i < input_list.length; i++){
+                input_list[i].disabled = false;
+            }
+            
+            console.log("Elements of " +  mode + "mode" + "enabled");
+        }
+    </script>
+    <script>
+        function EstopEnterButton(){
+            drive_mode_client.mode = "e-stop";
+            console.log("Estop enter buttons is pressed");
+            handle_interface_mode();
+        }
+        function EstopExitButton(){
+            document.getElementById("exit-e-stop-button").disabled = true;
+            current_drive_mode = document.getElementById("drive-mode-text").innerText;
+            if(current_drive_mode == "Otonom Sürüş"){
+                drive_mode_client.mode = "autonomous";
+            }
+            else{
+                drive_mode_client.mode = "manuel";
+            }
+            console.log("Estop exit button is pressed");
+            handle_interface_mode();
+        }
+        function ChangeModeButton(){
+            interface_mode = drive_mode_client.mode;
+
+            if(interface_mode == "e-stop"){
+                drive_text = document.getElementById("drive-mode-text").innerText;
+                if(drive_text == "Otonom Sürüş"){
+                    document.getElementById("drive-mode-text").innerText = "Manuel Sürüş";
+                }
+                else{
+                    document.getElementById("drive-mode-text").innerText = "Otonom Sürüş";
+                }
+            }
+            else{
+                if(interface_mode == "manuel"){
+                    drive_mode_client.mode = "autonomous";
+                    document.getElementById("drive-mode-text").innerText = "Otonom Sürüş";
+
+                    console.log("Drive mode sign changed to autonomous");
+                }
+                else {
+                    drive_mode_client.mode = "manuel";
+                    document.getElementById("drive-mode-text").innerText = "Manuel Sürüş";
+                
+                    console.log("Drive mode sign changed to manuel");
+                }
+                handle_interface_mode();
+            }
+        }
+        console.log("Change Mode button is pressed");
+    </script>
+
+    <script src="js/go_to_goal_window.js">
+    </script>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAYRA Konfigürasyon Merkezi</title>
+    <style>
+        /* GENERAL */
+        html {
+            background-color: #303030;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .bordered {
+            border-radius: 4px;
+            border: 1px solid grey;
+        }
+        
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1 0 auto;
+            margin: auto;
+            padding: 0px;
+            width: 90%;
+            height: 90px;
+            background-color: #AA0000;
+            margin: 15px auto;
+        }
+        
+        .header-bar h1 {
+            margin: 0px;
+            padding: 0px;
+            color: #fff;
+            font-size: 30px;
+            display: block;
+        }
+        
+        .header-img img {
+            max-width: 30px;
+        }
+        
+        /* CONFIG PANEL */
+        .config-panel {
+            width: 90%;
+            margin: 15px auto;
+            padding: 20px;
+            background-color: #404040;
+        }
+        
+        .config-title {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #AA0000;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .config-block {
+            background-color: #505050;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #666;
+        }
+        
+        .config-block h3 {
+            color: #fff;
+            background-color: #AA0000;
+            margin: -15px -15px 15px -15px;
+            padding: 10px 15px;
+            border-radius: 4px 4px 0 0;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .config-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+        
+        .config-row label {
+            color: #fff;
+            font-weight: bold;
+            flex: 1;
+            margin-right: 10px;
+        }
+        
+        .config-row input, .config-row select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            max-width: 150px;
+        }
+        
+        .config-row input:focus, .config-row select:focus {
+            outline: none;
+            border-color: #AA0000;
+            box-shadow: 0 0 5px rgba(170, 0, 0, 0.3);
+        }
+        
+        /* BUTTONS */
+        .config-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .gui-button {
+            background-color: #AA0000;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.2em;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            border-radius: 4px;
+            margin: 5px;
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .gui-button:hover {
+            background-color: #CC0000;
+        }
+        
+        .gui-button:active {
+            background-color: #880000;
+        }
+        
+        /* PRESET MANAGEMENT */
+        .preset-section {
+            background-color: #505050;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #666;
+            margin-bottom: 20px;
+        }
+        
+        .preset-section h3 {
+            color: #fff;
+            background-color: #AA0000;
+            margin: -15px -15px 15px -15px;
+            padding: 10px 15px;
+            border-radius: 4px 4px 0 0;
+            text-align: center;
+        }
+        
+        .preset-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .preset-controls input {
+            padding: 8px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+        }
+        
+        /* STATUS INDICATORS */
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-connected {
+            background-color: #00AA00;
+        }
+        
+        .status-disconnected {
+            background-color: #AA0000;
+        }
+        
+        .status-warning {
+            background-color: #FFAA00;
+        }
+        
+        /* RESPONSIVE */
+        @media only screen and (max-width: 1000px) {
+            .config-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .preset-controls {
+                flex-direction: column;
+            }
+            
+            .preset-controls input {
+                max-width: 100%;
+            }
+            
+            .config-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* NOTIFICATION */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .notification.success {
+            background-color: #00AA00;
+        }
+        
+        .notification.error {
+            background-color: #AA0000;
+        }
+        
+        .notification.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header bordered">
+        <div class="header-bar">
+            <h1>KAYRA KONFİGÜRASYON MERKEZİ</h1>
+        </div>
+    </div>
+
+    <!-- MAIN CONFIG PANEL -->
+    <div class="config-panel bordered">
+        <h2 class="config-title">Node Parametreleri Konfigürasyonu</h2>
+
+        <!-- PRESET MANAGEMENT -->
+        <div class="preset-section bordered">
+            <h3>Preset Yönetimi</h3>
+            <div class="preset-controls">
+                <input type="text" id="preset_name" placeholder="Preset adı girin...">
+                <button class="gui-button" onclick="loadPreset()">Yükle</button>
+                <button class="gui-button" onclick="savePreset()">Kaydet</button>
+            </div>
+        </div>
+
+        <!-- CONFIG BLOCKS GRID -->
+        <div class="config-grid">
+            <!-- Vision Transformer -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Vision Transformer</h3>
+                <div class="config-row">
+                    <label for="vt_inflation">Inflation Radius:</label>
+                    <input type="number" id="vt_inflation" step="0.01" value="0.1" onchange="updateConfig('vision_transformer', 'inflation_radius', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="vt_blur">Blur Iterations:</label>
+                    <input type="number" id="vt_blur" value="3" onchange="updateConfig('vision_transformer', 'blur_iterations', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="vt_confidence">Confidence Threshold:</label>
+                    <input type="number" id="vt_confidence" step="0.01" value="0.8" min="0" max="1" onchange="updateConfig('vision_transformer', 'confidence_threshold', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="vt_model">Model Type:</label>
+                    <select id="vt_model" onchange="updateConfig('vision_transformer', 'model_type', this.value)">
+                        <option value="vit_base">ViT Base</option>
+                        <option value="vit_large">ViT Large</option>
+                        <option value="deit">DeiT</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Autonomous Drive -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Autonomous Drive</h3>
+                <div class="config-row">
+                    <label for="ad_speed">Max Speed (m/s):</label>
+                    <input type="number" id="ad_speed" step="0.1" value="1.0" min="0" max="5" onchange="updateConfig('autonomous_drive', 'max_speed', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="ad_steer">Steering Gain:</label>
+                    <input type="number" id="ad_steer" step="0.1" value="0.5" min="0" max="2" onchange="updateConfig('autonomous_drive', 'steering_gain', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="ad_lookahead">Lookahead Distance:</label>
+                    <input type="number" id="ad_lookahead" step="0.1" value="2.0" min="0.5" max="10" onchange="updateConfig('autonomous_drive', 'lookahead_distance', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="ad_mode">Drive Mode:</label>
+                    <select id="ad_mode" onchange="updateConfig('autonomous_drive', 'drive_mode', this.value)">
+                        <option value="normal">Normal</option>
+                        <option value="aggressive">Aggressive</option>
+                        <option value="conservative">Conservative</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Path Planner -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-warning"></span>Path Planner</h3>
+                <div class="config-row">
+                    <label for="pp_resolution">Grid Resolution:</label>
+                    <input type="number" id="pp_resolution" step="0.01" value="0.05" min="0.01" max="0.5" onchange="updateConfig('path_planner', 'grid_resolution', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="pp_obstacle">Obstacle Inflation:</label>
+                    <input type="number" id="pp_obstacle" step="0.01" value="0.2" min="0" max="1" onchange="updateConfig('path_planner', 'obstacle_inflation', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="pp_algorithm">Algorithm:</label>
+                    <select id="pp_algorithm" onchange="updateConfig('path_planner', 'algorithm', this.value)">
+                        <option value="astar">A*</option>
+                        <option value="dijkstra">Dijkstra</option>
+                        <option value="rrt">RRT</option>
+                        <option value="rrt_star">RRT*</option>
+                    </select>
+                </div>
+                <div class="config-row">
+                    <label for="pp_timeout">Planning Timeout (s):</label>
+                    <input type="number" id="pp_timeout" step="0.1" value="5.0" min="1" max="30" onchange="updateConfig('path_planner', 'planning_timeout', this.value)">
+                </div>
+            </div>
+
+            <!-- Localization -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Localization</h3>
+                <div class="config-row">
+                    <label for="loc_gps_weight">GPS Weight:</label>
+                    <input type="number" id="loc_gps_weight" step="0.1" value="0.3" min="0" max="1" onchange="updateConfig('localization', 'gps_weight', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="loc_odom_weight">Odometry Weight:</label>
+                    <input type="number" id="loc_odom_weight" step="0.1" value="0.4" min="0" max="1" onchange="updateConfig('localization', 'odometry_weight', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="loc_imu_weight">IMU Weight:</label>
+                    <input type="number" id="loc_imu_weight" step="0.1" value="0.3" min="0" max="1" onchange="updateConfig('localization', 'imu_weight', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="loc_filter">Filter Type:</label>
+                    <select id="loc_filter" onchange="updateConfig('localization', 'filter_type', this.value)">
+                        <option value="ekf">Extended Kalman Filter</option>
+                        <option value="ukf">Unscented Kalman Filter</option>
+                        <option value="pf">Particle Filter</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Camera System -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Camera System</h3>
+                <div class="config-row">
+                    <label for="cam_fps">Frame Rate:</label>
+                    <input type="number" id="cam_fps" value="30" min="1" max="60" onchange="updateConfig('camera_system', 'frame_rate', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="cam_resolution">Resolution:</label>
+                    <select id="cam_resolution" onchange="updateConfig('camera_system', 'resolution', this.value)">
+                        <option value="640x480">640x480</option>
+                        <option value="1280x720">1280x720</option>
+                        <option value="1920x1080">1920x1080</option>
+                    </select>
+                </div>
+                <div class="config-row">
+                    <label for="cam_exposure">Auto Exposure:</label>
+                    <select id="cam_exposure" onchange="updateConfig('camera_system', 'auto_exposure', this.value)">
+                        <option value="true">Enabled</option>
+                        <option value="false">Disabled</option>
+                    </select>
+                </div>
+                <div class="config-row">
+                    <label for="cam_compression">Compression Quality:</label>
+                    <input type="number" id="cam_compression" value="80" min="10" max="100" onchange="updateConfig('camera_system', 'compression_quality', this.value)">
+                </div>
+            </div>
+
+            <!-- Sign Detector -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Sign Detector</h3>
+                <div class="config-row">
+                    <label for="sd_threshold">Detection Threshold:</label>
+                    <input type="number" id="sd_threshold" step="0.01" value="0.7" min="0" max="1" onchange="updateConfig('sign_detector', 'detection_threshold', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="sd_nms">NMS Threshold:</label>
+                    <input type="number" id="sd_nms" step="0.01" value="0.4" min="0" max="1" onchange="updateConfig('sign_detector', 'nms_threshold', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="sd_model">Model:</label>
+                    <select id="sd_model" onchange="updateConfig('sign_detector', 'model_path', this.value)">
+                        <option value="yolov8n">YOLOv8 Nano</option>
+                        <option value="yolov8s">YOLOv8 Small</option>
+                        <option value="yolov8m">YOLOv8 Medium</option>
+                    </select>
+                </div>
+                <div class="config-row">
+                    <label for="sd_classes">Max Classes:</label>
+                    <input type="number" id="sd_classes" value="10" min="1" max="100" onchange="updateConfig('sign_detector', 'max_classes', this.value)">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- NOTIFICATION -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // WebSocket connection (assuming your existing WebSocket setup)
+        let ws = null;
+        
+        function connectWebSocket() {
+            try {
+                ws = new WebSocket('ws://localhost:4000');
+                
+                ws.onopen = function() {
+                    showNotification('WebSocket bağlantısı başarılı', 'success');
+                };
+                
+                ws.onclose = function() {
+                    showNotification('WebSocket bağlantısı kesildi', 'error');
+                };
+                
+                ws.onerror = function() {
+                    showNotification('WebSocket bağlantı hatası', 'error');
+                };
+            } catch (error) {
+                console.log('WebSocket connection not available:', error);
+            }
+        }
+
+        function updateConfig(device, param, value) {
+            console.log(`Updating ${device}.${param} = ${value}`);
+            
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    mode: "update_config",
+                    device: device,
+                    param: param,
+                    value: parseFloat(value) || value
+                };
+                ws.send(JSON.stringify(message));
+            }
+            
+            showNotification(`${device} parametresi güncellendi`, 'success');
+        }
+
+        function loadPreset() {
+            const presetName = document.getElementById('preset_name').value;
+            if (!presetName) {
+                showNotification('Preset adı giriniz', 'error');
+                return;
+            }
+            
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    mode: "load_config",
+                    preset_name: presetName
+                };
+                ws.send(JSON.stringify(message));
+            }
+            
+            showNotification(`${presetName} preset'i yüklendi`, 'success');
+        }
+
+
+        function applyAllConfigs() {
+            // Get all input values and update configs
+            const inputs = document.querySelectorAll('input, select');
+            inputs.forEach(input => {
+                if (input.onchange) {
+                    input.onchange();
+                }
+            });
+            showNotification('Tüm konfigürasyonlar uygulandı', 'success');
+        }
+
+
+
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize WebSocket connection on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            connectWebSocket();
+        });
+    </script>
+</body>
+</html>

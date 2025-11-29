@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/roslibjs/1.1.0/roslib.min.js"></script>       
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        var ros = new ROSLIB.Ros({
+            url : 'ws://localhost:9090'
+        });
+
+        ros.on('connection', function() {
+            console.log('Connected to websocket server.');
+        });
+
+        ros.on('error', function(error) {
+            console.log('Error connecting to websocket server: ', error);
+        });
+
+        ros.on('close', function() {
+            console.log('Connection to websocket server closed.');
+        });
+    </script>
+
+    <style>
+        .container{
+            background-color: gold;
+            border-radius: 3px;
+            width: 90vw;
+            height: 60vh;
+            margin: 0 auto ;
+            display: grid;
+            /* grid-template-columns: 1fr minmax(300px, 2fr) 1fr; */
+            /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+            /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+            grid-template-columns: [col-start] 1fr [col-2] minmax(300px, 2fr) [col-3] 1fr [col-end];
+            grid-template-rows: 30% 30% 40%;
+
+            grid-auto-rows: 100px;
+            grid-auto-rows: 100px;
+            grid-auto-flow: row; /*new items fill the rows*/
+
+            /* grid-column-gap: 10px;
+            grid-row-gap: 20px; */
+            grid-gap: 10px; /*can be set together row, column*/
+            /* align-items: center;  */
+            /*normally stretch*vertical position*/
+            /* justify-items;  */
+            /* place-items: center stretch; align and then justify */
+            align-content: start;
+            justify-content: center;
+
+            grid-template-areas:
+            "action-bar imagery joints"
+            "action-bar imagery joints"
+            "controller controller controller";
+            
+        }
+        .container div{
+            background-color: green
+        }
+         .action-bar{
+            grid-area: action-bar;
+            background-color: blue;
+            /* grid-column-start: 1;
+            grid-column-end:3; 
+            also can say span 3
+            */
+            /* grid-row-start: 1;
+            grid-row-end: span 2; */
+            /* 
+            short: grid-column:start / end
+            */
+            /* place-self: center start; */
+            /* 
+            grid-area: 2 / 1 /  2 / 3->row start col start row end col end
+            */
+        }
+        .imagery{
+            grid-area: imagery;
+            background-color: purple;
+        }
+        .joints{
+            grid-area: joints;
+            background-color: black;
+        }
+        .controller{
+            grid-area: controller;
+            background-color: brown;
+        }
+        .empty{
+            grid-area: empty;
+            background-color: #fff;
+        }
+
+    </style>
+
+
+    <link rel="stylesheet" href="style/style.css" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <div class="action-bar">1</div>
+        <div class="imagery">2</div>
+        <div class="joints">3</div>
+        <div class="controller">4</div>
+        <!-- <div class="empty"></div> -->
+    </div>
+</body>
+</html>

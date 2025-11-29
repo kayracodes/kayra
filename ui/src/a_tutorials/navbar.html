@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flex-Navbar</title>
+    
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .navbar{
+            display: flex;
+            flex-direction: row;
+            background-color: goldenrod;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .item{
+            background-color: goldenrod;
+            color: white;
+            font-size: 20px;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 10px;
+        }
+
+        @media all and (max-width: 800px) {
+            .navbar{
+                justify-content: space-evenly;
+            }
+        }
+        @media all and (max-width:700px){
+            .navbar{
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="item">Home</div>
+        <div class="item">About</div>
+        <div class="item">Products</div>
+        <div class="item">Contact</div>
+    </div>
+</body>
+</html>

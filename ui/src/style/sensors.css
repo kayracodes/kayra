@@ -1,0 +1,422 @@
+html{
+    background-color: #303030;
+}
+.bordered
+{
+    border-radius: 4px;
+    border: 1px solid grey;
+}
+/* HEADER */
+.header{
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    flex:1 0 auto;
+    margin: auto;
+    padding: 0px;
+    width: 90%;
+    height:90px;
+    background-color: #AA0000;
+    margin: 15px auto;
+}
+.header-bar h1{
+    margin:0px;
+    padding:0px;
+    color:#fff;
+    font-size: 30px;
+    display: block;
+}
+.header-img {
+    margin:0;
+    padding: 0;
+    align-items: center;
+    img{
+        max-width: 40px;
+    }
+}
+/* STATUS */
+.status-bar{
+    grid-area: status;
+    grid-column: col-start / col-end;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width:100%;
+    margin:15px auto;
+    padding: 0;
+    background-color: #AA0000;
+}
+.status-item{
+    display:inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#AA0000;
+    width:20%;
+}
+.status-title{
+    display: inline-flex;
+    height:40px;
+    h2{
+        display: inline-block;
+        margin:auto;
+        color:#fff;
+    }
+}
+.status-img{
+    display: inline-flex;
+    align-items:center;
+    margin: auto;
+    padding: auto;
+    img{
+        max-width:40px;
+        margin:auto;
+        padding:auto;
+    }
+}
+.status-card{
+    display: inline-flex;
+    align-items: center;
+}
+/* GUI */
+.gui-button{
+    background-color: #AA0000;
+    color:white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size:1.5em;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 4px;
+    margin:auto;
+    padding: 10px 0em;
+    width:100%;
+}
+.button-container{
+    width:100%;
+    margin:auto;
+}
+.gui-button:hover{
+    background-color: #880808;
+    font-family: 'Times New Roman', Times, serif;
+    font-size:1.5em;
+}
+
+.gui-title{
+    width:100%;
+    height:100%;
+    color: #fff;
+    text-align: center;
+    align-content: stretch;
+    background-color:#880808 ;
+    margin:auto;
+    height: 40px;
+    align-content: center;
+}
+.gui-link {
+    width:100%;
+    height:100%;
+    text-decoration: none;
+    color:#fff;
+    background-color: #AA0000;
+    font-size: 1.5em;
+    text-align: center;
+    margin: auto;
+    align-content: stretch;
+}
+
+.gui-link:hover{
+    background-color: #880808;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0px;
+    margin:auto 0px;
+    padding:auto 0px;
+}
+.gui-cam img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0px;
+    margin:auto;
+    padding:auto 0px;
+}
+.gui-text{
+    text-align: center;
+    color : #fff;
+    margin:0;
+    background-color: #AA0000;
+}
+.gui-text p{
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+}
+.keypad-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.keypad-button {
+    background-color: #AA0000;
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    min-height: 40px;
+}
+
+.keypad-button:hover {
+    background-color: #880808;
+}
+
+.keypad-button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.keypad-button.active {
+    background-color: #00AA00;
+    }
+
+.keypad-button.active:hover {
+    background-color: #008800;
+}
+
+
+input[type="range"]{
+    font-size: 1.5rem;
+    width: 80%;
+
+    accent-color: #AA0000;
+    --thumb-height: 1.125em;
+    --track-height: 0.125em;
+    --track-color: rgba(0, 0, 0, 0.2);
+    --brightness-hover: 180%;
+    --brightness-down: 80%;
+    --clip-edges: 0.125em;
+}
+
+/* CONTAINER */
+.container{
+    /* height:100vh; */
+    display:grid;
+    grid-template:
+    "status status status" auto
+    "sidebar cam1 cam2" 420px
+    "actions cam3 cam4" 420px
+    / [col-start] 1fr [col-2] 3fr [col-3] 3fr [col-end];
+    grid-gap: 0.2rem;
+    width: 90%;
+    margin: auto;
+}
+.actions{
+    display: grid;
+    grid-area: actions;
+    grid-template-rows: repeat(9, 0.1fr);
+    place-content: stretch stretch;
+    background-color: #303030;
+}
+.cam1{
+    grid-area: cam1;
+    background-color: #303030;
+    display: grid;
+    grid-template-rows: 20px auto;
+    place-items:start, center;
+}
+.cam2{
+    grid-area: cam2;
+    background-color: #303030;
+    display: grid;
+    grid-template-rows: 20px auto;
+    place-items:start, center;
+}
+.cam3{
+    grid-area: cam3;
+    background-color: #303030;
+    display: grid;
+    grid-template-rows: 20px auto;
+    place-items:start, center;
+}
+.cam4{
+    grid-area: cam4;
+    background-color: #303030;
+    display: grid;
+    grid-template-rows: 20px auto;
+    place-items:start, center;
+}
+.joints{
+    grid-area: joints;
+    background-color: #303030;
+}
+.sidebar{
+    display: grid;
+    grid-area: sidebar;
+    grid-template-rows: 3fr repeat(4, 1fr);
+    place-items: center;
+    background-color: #303030;
+}
+.sidebar img{
+    max-width: 150px;
+}
+
+.split-camera-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    height: 100%;
+    width: 100%;
+}
+
+.split-camera-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.split-camera-item img {
+    flex: 1;
+    width: 100%;
+    object-fit: cover;
+}
+
+.split-camera-label {
+    background-color: rgba(170, 0, 0, 0.8);
+    padding: 3px;
+    text-align: center;
+    margin-bottom: 2px;
+    flex-shrink: 0;
+}
+
+.split-camera-label p {
+    margin: 0;
+    font-size: 11px;
+    color: white;
+    font-weight: bold;
+}
+
+/* SENSORS */
+.sensors{
+    display: grid;
+    grid-template:
+    "gps-table velocity-table imu-table odom-table" 1fr
+    / [col-start] 1fr [col-2] 1fr [col-3] 1fr [col-4] 1fr [col-end];
+    grid-gap: 0.2em;
+    width:90%;
+    margin: auto;
+}
+.sensor-table-2{
+    display:grid;
+    grid-template:
+    "empty title1 title2" 1fr
+    "row-title data1 data2" 1fr
+    / [col-start] 1fr [col-2] 1fr [col-3] 1fr [col-end];
+    grid-gap: 0.2em;
+}
+.sensor-table-3{
+    display:grid;
+    grid-template:
+    "empty title1 title2 title3" 1fr
+    "row-title data1 data2 data3" 1fr
+    / [col-start] 1fr [col-2] 1fr [col-3] 1fr [col-4] 1fr [col-end];
+    grid-gap: 0.2em;
+}
+
+.empty-cell{
+    background-color: #AA0000;
+}
+.table-title{
+    display: inline-flex;
+    align-items: center;
+    background-color: #AA0000;
+    p{
+        text-align: center;
+        color:#fff;
+        font-family: 'Times New Roman', Times, serif;
+        padding:0;
+        margin:auto;
+    }
+}
+.row-title{
+    display: inline-flex;
+    align-items: center;
+    background-color: #AA0000;
+    p{
+        text-align: center;
+        color:#fff;
+        font-family: 'Times New Roman', Times, serif;
+        padding:0;
+        margin:auto;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}
+.table-cell{
+    background-color: #fff;
+    p{
+        text-align: center;
+        font-family: 'Times New Roman', Times, serif
+    }
+}
+.table-title p{
+    font-size: 20px;
+    font-weight: bold;
+}
+/* MEDIA QUERY*/
+@media only screen and (max-width:1000px){
+    .container{
+        grid-template:
+        "status sidebar actions" 1fr
+        "cam1 cam1 cam1" 1fr
+        "cam2 cam2 cam2" 1fr
+        "cam3 cam3 cam3" 1fr
+        "cam4 cam4 cam4" 1fr
+        / [col-start] 1fr [col-2] 1fr [col-3] 1fr [col-end];
+        grid-gap: 0.5em;
+    }
+    .cam1{
+        grid-column: col-start / col-end;
+    }
+    .cam2{
+        grid-column: col-start / col-end;
+    }
+
+    .cam3{
+        grid-column: col-start / col-end;
+    }
+    .cam4{
+        grid-column: col-start / col-end;
+    }
+    .status-bar{
+        grid-area:status;
+        flex-direction: column;
+        margin:0;
+    }
+    .status-item{
+        width:100%;
+        height:20%;
+    }
+    .sensors{
+        grid-template:
+        "gps-table velocity-table" 1fr
+        "imu-table odom-table" 1fr
+        / [col-start] 1fr [col-2] 1fr [col-end];      
+        padding: 20px 0; 
+    }
+}

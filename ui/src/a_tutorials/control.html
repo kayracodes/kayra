@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Control</title> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/nipplejs/0.7.3/nipplejs.js"></script>
+    <!-- ROS LIB script include-->
+    <!-- JOY STICK -->
+    <script>
+        var canvas, ctx;
+
+        window.addEventListener('load', () => {
+
+            canvas = document.getElementById('canvas');
+            ctx = canvas.getContext('2d');          
+            resize(); 
+
+            document.addEventListener('mousedown', startDrawing);
+            document.addEventListener('mouseup', stopDrawing);
+            document.addEventListener('mousemove', Draw);
+
+            document.addEventListener('touchstart', startDrawing);
+            document.addEventListener('touchend', stopDrawing);
+            document.addEventListener('touchcancel', stopDrawing);
+            document.addEventListener('touchmove', Draw);
+            window.addEventListener('resize', resize);
+
+            document.getElementById("x_coordinate").innerText = 0;
+            document.getElementById("y_coordinate").innerText = 0;
+            document.getElementById("speed").innerText = 0;
+            document.getElementById("angle").innerText = 0;
+        });
+
+      
+
+
+        var width, height, radius, x_orig, y_orig;
+        function resize() {
+            width = window.innerWidth;
+            radius = 200;
+            height = radius * 6.5;
+            ctx.canvas.width = width;
+            ctx.canvas.height = height;
+            background();
+            joystick(width / 2, height / 3);
+        }
+
+        function background() {
+            x_orig = width / 2;
+            y_orig = height / 3;
+
+            ctx.beginPath();
+            ctx.arc(x_orig, y_orig, radius + 20, 0, Math.PI * 2, true);
+            ctx.fillStyle = '#ECE5E5';
+            ctx.fill();
+        }
+
+        function joystick(width, height) {
+            ctx.beginPath();
+            ctx.arc(width, height, radius, 0, Math.PI * 2, true);
+            ctx.fillStyle = '#F08080';
+            ctx.fill();
+            ctx.strokeStyle = '#F6ABAB';
+            ctx.lineWidth = 8;
+            ctx.stroke();
+        }
+
+        let coord = { x: 0, y: 0 };
+        let paint = false;
+
+        function getPosition(event) {
+            var mouse_x = event.clientX || event.touches[0].clientX;
+            var mouse_y = event.clientY || event.touches[0].clientY;
+            coord.x = mouse_x - canvas.offsetLeft;
+            coord.y = mouse_y - canvas.offsetTop;
+        }
+
+        function is_it_in_the_circle() {
+            var current_radius = Math.sqrt(Math.pow(coord.x - x_orig, 2) + Math.pow(coord.y - y_orig, 2));
+            if (radius >= current_radius) return true
+            else return false
+        }
+
+
+        function startDrawing(event) {
+            paint = true;
+            getPosition(event);
+            if (is_it_in_the_circle()) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                background();
+                joystick(coord.x, coord.y);
+                Draw();
+            }
+        }
+
+
+        function stopDrawing() {
+            paint = false;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            background();
+            joystick(width / 2, height / 3);
+            document.getElementById("x_coordinate").innerText = 0;
+            document.getElementById("y_coordinate").innerText = 0;
+            document.getElementById("speed").innerText = 0;
+            document.getElementById("angle").innerText = 0;
+
+        }
+
+        function Draw(event) {
+
+            if (paint) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                background();
+                var angle_in_degrees,x, y, speed;
+                var angle = Math.atan2((coord.y - y_orig), (coord.x - x_orig));
+
+                if (Math.sign(angle) == -1) {
+                    angle_in_degrees = Math.round(-angle * 180 / Math.PI);
+                }
+                else {
+                    angle_in_degrees =Math.round( 360 - angle * 180 / Math.PI);
+                }
+
+
+                if (is_it_in_the_circle()) {
+                    joystick(coord.x, coord.y);
+                    x = coord.x;
+                    y = coord.y;
+                }
+                else {
+                    x = radius * Math.cos(angle) + x_orig;
+                    y = radius * Math.sin(angle) + y_orig;
+                    joystick(x, y);
+                }
+
+            
+                getPosition(event);
+
+                var speed =  Math.round(100 * Math.sqrt(Math.pow(x - x_orig, 2) + Math.pow(y - y_orig, 2)) / radius);
+
+                var x_relative = Math.round(x - x_orig);
+                var y_relative = Math.round(y - y_orig);
+                
+
+                document.getElementById("x_coordinate").innerText =  x_relative;
+                document.getElementById("y_coordinate").innerText =y_relative ;
+                document.getElementById("speed").innerText = speed;
+                document.getElementById("angle").innerText = angle_in_degrees;
+
+                send( x_relative,y_relative,speed,angle_in_degrees);
+            }
+        } 
+    </script>
+
+    <style>
+        html{
+            background-color: #303030;
+        }
+        .bordered
+        {
+            border-radius: 4px;
+            border: 1px solid grey;
+        }
+        .gui-button{
+            background-color: #AA0000;
+            color:white;
+            font-family: 'Times New Roman', Times, serif;
+            font-size:1.5em;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 4px;
+            margin:auto;
+            padding: 4px 15px;
+            /* max-width: 80%; */
+        }
+        .gui-button:hover{
+            background-color: #AA0000;
+            font-family: 'Times New Roman', Times, serif;
+            font-size:1.5em;
+        }
+    
+        .gui-title{
+            width:100%;
+            height:100%;
+            color: #fff;
+            background-color:#AA0000 ;
+            margin:0;
+        }
+        .gui-link {
+            width:100%;
+            height:100%;
+            text-decoration: none;
+            color:#fff;
+            background-color: #AA0000;
+            font-size: 1.5em;
+            padding:0;
+        }
+    
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0px;
+            margin:auto 0px;
+            padding:auto 0px;
+        }
+        .gui-cam img{
+            max-width: 100%;
+            height: auto;
+            border-radius: 0px;
+            margin:auto 0px;
+            padding:auto 0px;
+        }
+        .gui-text{
+            text-align: center;
+            color : #fff;
+            margin:0;
+            background-color: #AA0000;
+        }
+        .gui-text p{
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+        }
+        .container{
+            /* height:100vh; */
+            display:grid;
+            grid-template:
+            "status status status" auto
+            "sidebar cam1 cam2" 1fr
+            "actions control-joy keys" 1fr
+            / [col-start] 1fr [col-2] minmax(300px, 3fr) [col-3] minmax(300px, 3fr) [col-end];
+            grid-gap: 0.2rem;
+            width: 90%;
+            margin: auto;
+        }
+        .actions{
+            display: grid;
+            grid-area: actions;
+            grid-template-rows: repeat(8, 0.1fr);
+            place-items: center, center;
+            place-content: center, start;
+            background-color: #303030;
+        }
+        .cam1{
+            grid-area: cam1;
+            background-color: #303030;
+            display: grid;
+            grid-template-rows: 20px auto;
+            place-items:start, center;
+        }
+        .cam2{
+            grid-area: cam2;
+            background-color: #303030;
+            display: grid;
+            grid-template-rows: 20px auto;
+            place-items:start, center;
+        }
+        .joints{
+            grid-area: joints;
+            background-color: #303030;
+        }
+        .sidebar{
+            display: grid;
+            grid-area: sidebar;
+            grid-template-rows: 3fr repeat(4, 1fr);
+            place-items: center;
+            place-content: center, center;
+            background-color: #303030;
+        }
+        .sidebar img{
+            max-width: 150px;
+        }
+        .control-joy{
+            grid-area: control-joy;
+            background-color: #303030;
+        }
+        #canvas{
+            width: 100%;
+            height:100%;
+            margin:auto;
+        }
+        .keys{
+            grid-area: keys;
+            background-color: #303030;
+        }
+    
+        .header{
+            display:flex;
+            align-items:center;
+            justify-content: center;
+            flex:1 0 auto;
+            margin: auto;
+            padding: 0px;
+            width: 90%;
+            height:90px;
+            background-color: #AA0000;
+            margin: 15px auto;
+        }
+        .header-bar h1{
+            margin:0px;
+            padding:0px;
+            color:#fff;
+            font-size: 30px;
+            display: block;
+            
+        }
+        .header-img img{
+            max-width: 30px;
+        }
+        .status-bar{
+            grid-area: status;
+            grid-column: col-start / col-end;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            width:100%;
+            margin:15px auto;
+            padding: 0;
+            background-color: #AA0000;
+        }
+        .status-item{
+            display:inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color:#AA0000;
+            width:20%;
+        }
+        .status-title{
+            display: inline-flex;
+            height:40px;
+            h2{
+                display: inline-block;
+                margin:auto;
+                color:#fff;
+            }
+        }
+        .status-img{
+            display: inline-flex;
+            align-items:center;
+            margin: auto;
+            padding: auto;
+            img{
+                max-width:40px;
+                margin:auto;
+                padding:auto;
+            }
+        }
+        .status-card{
+            display: inline-flex;
+            align-items: center;
+        }
+        /* SENSORS */
+        .sensors{
+            display: grid;
+            grid-template:
+            "gps-table velocity-table imu-table odom-table" 1fr
+            / [col-start] 1fr [col-2] 1fr [col-3] 1fr [col-4] 1fr [col-end];
+            grid-gap: 0.2em;
+            width:90%;
+            margin: auto;
+        }
+        .sensor-table-2{
+            display:grid;
+            grid-template:
+            "empty title1 title2" 1fr
+            "row-title data1 data2" 1fr
+            / [col-start] 1fr [col-2] 1fr [col-3] 1fr [col-end];
+            grid-gap: 0.2em;
+        }
+        .sensor-table-3{
+            display:grid;
+            grid-template:
+            "empty title1 title2 title3" 1fr
+            "row-title data1 data2 data3" 1fr
+            / [col-start] 1fr [col-2] 1fr [col-3] 1fr [col-4] 1fr [col-end];
+            grid-gap: 0.2em;
+        }
+
+        .empty-cell{
+            background-color: #AA0000;
+        }
+        .table-title{
+            display: inline-flex;
+            align-items: center;
+            background-color: #AA0000;
+            p{
+                text-align: center;
+                color:#fff;
+                font-family: 'Times New Roman', Times, serif;
+                padding:0;
+                margin:auto;
+            }
+        }
+        .row-title{
+            display: inline-flex;
+            align-items: center;
+            background-color: #AA0000;
+            p{
+                text-align: center;
+                color:#fff;
+                font-family: 'Times New Roman', Times, serif;
+                padding:0;
+                margin:auto;
+            }
+        }
+        .table-cell{
+            background-color: #fff;
+            p{
+                text-align: center;
+                font-family: 'Times New Roman', Times, serif
+            }
+        }
+
+        /* MEDIA QUERY */
+        @media only screen and (max-width:900px){
+            .container{
+                grid-template:
+                "status sidebar actions" 1fr
+                "cam1 cam1 cam1" 1fr
+                "cam2 cam2 cam2" 1fr
+                "control-joy control-joy control-joy" 1fr
+                "keys keys keys" 1fr
+                / [col-start] 1fr [col-2] 1fr [col-3] 1fr [col-end];
+                grid-gap: 0.5em;
+            }
+            .cam1{
+                grid-column: col-start / col-end;
+            }
+            .cam2{
+                grid-column: col-start / col-end;
+            }
+
+            .control-joy{
+                grid-column: col-start / col-end;
+                display: inline-flex;
+            }
+            .keys{
+                grid-column: col-start / col-end;
+            }
+            .status-bar{
+                grid-area:status;
+                grid-column:col-start / col-2;
+                flex-direction: column;
+                margin:0;
+            }
+            .status-item{
+                width:100%;
+            }
+            .sensors{
+                grid-template:
+                "gps-table velocity-table" 1fr
+                "imu-table odom-table" 1fr
+                / [col-start] 1fr [col-2] 1fr [col-end];      
+                padding: 20px 0; 
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header bordered">
+        <div class="header-bar">
+            <h1>İTÜ RAKE YER KONTROL İSTASYONU</h1>
+        </div>
+        <div class="header-img">
+            <img src="static/rake.png">
+        </div>
+    </div>
+    <div class="sensors">
+        <div class="sensor-table-2 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    Paralel
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Meridyen
+                </p>
+            </div>
+            <div class="row-title">
+                <p>
+                    GPS
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    41.6356787
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    33.4765746
+                </p>
+            </div>
+        </div>
+        <div class="sensor-table-3 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    Ax
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Ay
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Az
+                </p>
+            </div>
+            <div class="row-title">
+                <p>
+                    IMU
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    1.67546
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    0.87654
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    9.81564
+                </p>
+            </div>
+        </div>
+        <div class="sensor-table-2 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    Hız
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Lineer x
+                </p>
+            </div>
+            <div class="row-title">
+                <p>
+                    Angular z
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    1.5634
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    1.10038
+                </p>
+            </div>
+        </div>
+        <div class="sensor-table-3 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    title-text
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    title-text
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    title-text
+                </p>
+            </div>
+            <div class="row-title">
+                <p>
+                    title-text
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    cell-text
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    cell-text
+                </p>
+            </div>
+            <div class="table-cell">
+                <p>
+                    cell-text
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="status-bar bordered">
+            <div class="status-item">
+                <div class="status-card">
+                    <div class="status-title">
+                        <h2>
+                            Teknofest 2024
+                        </h2>
+                    </div>
+                    <div class="status-img">
+                        <img src="static/rake.png">
+                    </div>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2>
+                        E-stop
+                    </h2>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2>
+                        Simtime
+                    </h2>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2>
+                        Connection
+                    </h2>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2>
+                        Sürüş Modu
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="actions bordered">
+            <h3 class="gui-title">Komutlar</h3>
+            <div>
+                <button class="gui-button">E-stop</button>
+            </div>
+            <div>
+                <button class="gui-button">Başlat</button>
+            </div>        
+            <div>
+                <button class="gui-button">Durdur</button>
+            </div>         
+            <div>
+                <button class="gui-button">Git</button>
+            </div>            
+            <div>
+                <button class="gui-button">indir</button>
+            </div>
+            <h3 class="gui-title">Bağlantılar</h3>
+            <a class="gui-link" href="#">Sensörler</a>
+            <a class="gui-link" href="#">Yaralılar</a>
+        </div>
+        <div class="sidebar bordered">
+            <img src="static/rake.png">
+            <h3 class="gui-title">Ön Kamera</h3>
+            <input type="range" min="1" max="100" value="50" class="slider">
+            <h3 class="gui-title">Arka Kamera</h3>
+            <input type="range" min="1" max="100" value="50" class="slider">
+        </div>
+        
+        <div class="cam1 bordered">
+            <div class="gui-text">
+                <p>Front Camera</p>
+            </div>
+            <div class="gui-cam">
+                <img src="static/example.jpg">
+            </div>
+        </div>
+        <div class="cam2 bordered">
+            <div class="gui-text">
+                <p>Back Camera</p>
+            </div>
+            <div class="gui-cam">
+                <img src="static/example.jpg">
+            </div>
+        </div>
+        
+        <div class="control-joy bordered">
+
+            <canvas id="canvas" name="game"></canvas>
+        </div>
+        <div class="keys bordered">keys-bordered</div>
+    </div>
+</body>
+</html>

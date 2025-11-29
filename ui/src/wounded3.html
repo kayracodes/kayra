@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KAYRA Konfigürasyon Merkezi</title>
+    <style>
+        /* GENERAL */
+        html {
+            background-color: #303030;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .bordered {
+            border-radius: 4px;
+            border: 1px solid grey;
+        }
+        
+        /* HEADER */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1 0 auto;
+            margin: auto;
+            padding: 0px;
+            width: 90%;
+            height: 90px;
+            background-color: #AA0000;
+            margin: 15px auto;
+        }
+        
+        .header-bar h1 {
+            margin: 0px;
+            padding: 0px;
+            color: #fff;
+            font-size: 30px;
+            display: block;
+        }
+        
+        .header-img img {
+            max-width: 30px;
+        }
+        
+        /* CONFIG PANEL */
+        .config-panel {
+            width: 90%;
+            margin: 15px auto;
+            padding: 20px;
+            background-color: #404040;
+        }
+        
+        .config-title {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+            background-color: #AA0000;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .config-block {
+            background-color: #505050;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #666;
+        }
+        
+        .config-block h3 {
+            color: #fff;
+            background-color: #AA0000;
+            margin: -15px -15px 15px -15px;
+            padding: 10px 15px;
+            border-radius: 4px 4px 0 0;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .config-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+        
+        .config-row label {
+            color: #fff;
+            font-weight: bold;
+            flex: 1;
+            margin-right: 10px;
+        }
+        
+        .config-row input, .config-row select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            max-width: 150px;
+        }
+        
+        .config-row input:focus, .config-row select:focus {
+            outline: none;
+            border-color: #AA0000;
+            box-shadow: 0 0 5px rgba(170, 0, 0, 0.3);
+        }
+        
+        /* BUTTONS */
+        .config-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .gui-button {
+            background-color: #AA0000;
+            color: white;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 1.2em;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+            border-radius: 4px;
+            margin: 5px;
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .gui-button:hover {
+            background-color: #CC0000;
+        }
+        
+        .gui-button:active {
+            background-color: #880000;
+        }
+        
+        /* PRESET MANAGEMENT */
+        .preset-section {
+            background-color: #505050;
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid #666;
+            margin-bottom: 20px;
+        }
+        
+        .preset-section h3 {
+            color: #fff;
+            background-color: #AA0000;
+            margin: -15px -15px 15px -15px;
+            padding: 10px 15px;
+            border-radius: 4px 4px 0 0;
+            text-align: center;
+        }
+        
+        .preset-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .preset-controls input {
+            padding: 8px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+        }
+        
+        /* STATUS INDICATORS */
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+        
+        .status-connected {
+            background-color: #00AA00;
+        }
+        
+        .status-disconnected {
+            background-color: #AA0000;
+        }
+        
+        .status-warning {
+            background-color: #FFAA00;
+        }
+        
+        /* RESPONSIVE */
+        @media only screen and (max-width: 1000px) {
+            .config-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .preset-controls {
+                flex-direction: column;
+            }
+            
+            .preset-controls input {
+                max-width: 100%;
+            }
+            
+            .config-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+        
+        /* NOTIFICATION */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .notification.success {
+            background-color: #00AA00;
+        }
+        
+        .notification.error {
+            background-color: #AA0000;
+        }
+        
+        .notification.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header bordered">
+        <div class="header-bar">
+            <h1>KAYRA KONFİGÜRASYON MERKEZİ</h1>
+        </div>
+    </div>
+
+    <!-- MAIN CONFIG PANEL -->
+    <div class="config-panel bordered">
+        <h2 class="config-title">Node Parametreleri Konfigürasyonu</h2>
+
+        <!-- PRESET MANAGEMENT -->
+        <div class="preset-section bordered">
+            <h3>Config Dosyası Yönetimi</h3>
+            <div class="preset-controls">
+                <input type="text" id="load_config_name" placeholder="Yüklenecek dosya (örn: deneme.json)">
+                <button class="gui-button" onclick="loadConfig()">Yükle</button>
+            </div>
+            <div class="preset-controls" style="margin-top: 10px;">
+                <input type="text" id="save_config_name" placeholder="Kaydedilecek dosya (örn: yeni_config.json)">
+                <button class="gui-button" onclick="saveConfig()">Farklı Kaydet</button>
+            </div>
+        </div>
+
+        <!-- CONFIG BLOCKS GRID -->
+        <div class="config-grid">
+            <!-- Vision Transformer -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Vision Transformer</h3>
+                <div class="config-row">
+                    <label for="vt_default_inflation"> Default Inflation Radius:</label>
+                    <input type="number" id="vt_inflation" step="0.01" value="1.2" onchange="updateConfig('vision_transformer', 'default_inflation_radius', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="vt_sharp_inflation"> Sharp Inflation Radius:</label>
+                    <input type="number" id="vt_sharp_inflation" step="0.01" value="1.8" onchange="updateConfig('vision_transformer', 'sharp_turn_inflation_radius', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="vt_cautious_inflation">Cautious Inflation Radius:</label>
+                    <input type="number" id="vt_cautious_inflation" step="0.01" value="1.2" onchange="updateConfig('vision_transformer', 'cautious_inflation_radius', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="vt_min_length">Min Line Length:</label>
+                    <input type="number" id="vt_min_length" value="12" onchange="updateConfig('vision_transformer', 'min_line_length', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="vt_max_gap">Max Line Gap:</label>
+                    <input type="number" id="vt_max_gap" value="5" onchange="updateConfig('vision_transformer', 'max_line_gap', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="vt_angle">Max Detection Angle:</label>
+                    <input type="number" id="vt_angle" value="30" onchange="updateConfig('vision_transformer', 'max_detection_angle', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="vt_blur">Blur Iters:</label>
+                    <input type="number" id="vt_blur" value="2" onchange="updateConfig('vision_transformer', 'blur_iters', this.value)">
+                </div>
+            </div>
+
+            <!-- Path Tracker -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Path Tracker</h3>
+                <div class="config-row">
+                    <label for="kpangular">Kp Angular:</label>
+                    <input type="number" id="kpangular" step="0.1" value="7.0" onchange="updateConfig('path_tracker', 'kp_angular', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="kdangular">Kd Angular:</label>
+                    <input type="number" id="kdangular" step="0.1" value="0.5" min="0" max="2" onchange="updateConfig('path_tracker', 'kd_angular', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="maxangular">Max Angular Velocity:</label>
+                    <input type="number" id="maxangular" step="0.1" value="3.0"  onchange="updateConfig('path_tracker', 'max_angular_velocity', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="maxlinear">Max Linear Velocity:</label>
+                    <input type="number" id="maxlinear" step="0.1" value="0.8"  onchange="updateConfig('path_tracker', 'max_linear_velocity', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="minangular">Min Angular Velocity:</label>
+                    <input type="number" id="minangular" step="0.1" value="0.2"  onchange="updateConfig('path_tracker', 'min_angular_velocity', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="recovery_aggression">Recovery Aggression Coeff:</label>
+                    <input type="number" id="recovery_aggression" step="0.1" value="1.1"  onchange="updateConfig('path_tracker', 'recovery_aggression_coeff', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="recovery_time">Recovery Rotation Time:</label>
+                    <input type="number" id="recovery_time" step="0.1" value="3.0"  onchange="updateConfig('path_tracker', 'recovery_rotation_time', this.value)">
+                </div>
+            </div>
+
+            <!-- Path Planner -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-warning"></span>Path Planner</h3>
+                <div class="config-row">
+                    <label for="goaltolerance">Goal Tolerance:</label>
+                    <input type="number" id="goaltolerance" step="0.01" value="0.5" onchange="updateConfig('path_planner', 'goal_tolerance', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="goal_cost_thresh">Goal Cost Threshold:</label>
+                    <input type="number" id="goal_cost_thresh" step="0.01" value="70" onchange="updateConfig('path_planner', 'goal_cost_threshold', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="x_coeff">X coeff:</label>
+                    <input type="number" id="x_coeff" step="0.1" value="2.0" onchange="updateConfig('path_planner', 'x_coeff', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="y_coeff">Y coeff:</label>
+                    <input type="number" id="y_coeff" step="0.1" value="1.1" onchange="updateConfig('path_planner', 'y_coeff', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="depth_coeff">Depth coeff:</label>
+                    <input type="number" id="depth_coeff" step="0.1" value="1.2" onchange="updateConfig('path_planner', 'depth_coeff', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="goal_searchdepth">Goal Search Depth:</label>
+                    <input type="number" id="goal_searchdepth" step="0.1" value="75" onchange="updateConfig('path_planner', 'goal_search_depth', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="goal_selection_cost">Goal Selection Cost Coeff:</label>
+                    <input type="number" id="goal_selection_cost" step="0.1" value="1.2" onchange="updateConfig('path_planner', 'goal_selection_cost_coeff', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="path_find_distancecoeff">Path distance coeff:</label>
+                    <input type="number" id="path_find_distancecoeff" step="0.1" value="8.5" onchange="updateConfig('path_planner', 'path_find_cost_coeff', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="path_find_costcoeff">Path find coeff:</label>
+                    <input type="number" id="path_find_costcoeff" step="0.1" value="2.8" onchange="updateConfig('path_planner', 'path_find_distance_coeff', this.value)">
+                </div>
+            </div>
+
+            <!-- Ramp Alignment -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Ramp Alignment</h3>
+                <div class="config-row">
+                    <label for="kp">Kp:</label>
+                    <input type="number" id="kp" step="0.1" value="12.0" onchange="updateConfig('ramp_alignment_server', 'kp', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="kd">Kd:</label>
+                    <input type="number" id="kd" step="0.1" value="0.1" onchange="updateConfig('ramp_alignment_server', 'kd', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="degree_tol">Degree Tolerance :</label>
+                    <input type="number" id="degree_tol" step="0.1" value="0.5" onchange="updateConfig('ramp_alignment_server', 'degree_tolerance', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="execution_time">Max Execution Time:</label>
+                    <input type="number" id="execution_time" step="0.1" value="10.0" onchange="updateConfig('ramp_alignment_server', 'max_execution_time', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="max_angular_vel">Max Angular Velocity :</label>
+                    <input type="number" id="max_angular_vel" step="0.1" value="3.0" onchange="updateConfig('ramp_alignment_server', 'max_angular_velocity', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="min_angular_vel">Min Angular Velocity :</label>
+                    <input type="number" id="min_angular_vel" step="0.1" value="1.0" onchange="updateConfig('ramp_alignment_server', 'min_angular_velocity', this.value)">
+                </div>
+                
+            </div>
+
+            <!-- AlignWithPath -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span> Path Alignment</h3>
+                <div class="config-row">
+                    <label for="align_kpangular">Kp Angular:</label>
+                    <input type="number" id="align_kpangular" value="12.0" onchange="updateConfig('align_with_path_server', 'kp_angular', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="align_kdangular">Kd Angular:</label>
+                    <input type="number" id="align_kdangular" value="0.3" onchange="updateConfig('align_with_path_server', 'kd_angular', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="angtolerance">Angle Tolerance:</label>
+                    <input type="number" id="angtolerance" value="0.025" onchange="updateConfig('align_with_path_server', 'angle_tolerance', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="max_executiontime">Max Execution Time:</label>
+                    <input type="number" id="max_executiontime" value="10.0" onchange="updateConfig('align_with_path_server', 'max_execution_time', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="max_angularvelocity">Max Angular Velocity Time:</label>
+                    <input type="number" id="max_angularvelocity" value="3.0" onchange="updateConfig('align_with_path_server', 'max_angular_velocity', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="min_angularvelocity">Min Angular Velocity:</label>
+                    <input type="number" id="min_angularvelocity" value="1.0" onchange="updateConfig('align_with_path_server', 'min_angular_velocity', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="align_controlfrequency">Control Frequency:</label>
+                    <input type="number" id="align_controlfrequency" value="10.0" onchange="updateConfig('align_with_path_server', 'control_frequency', this.value)">
+                </div>
+                
+                      
+            </div>
+
+
+            <!-- Go Forward -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Go Forward</h3>
+                <div class="config-row">
+                    <label for="minvelocity">Min Velocity :</label>
+                    <input type="number" id="minvelocity" step="0.01" value="0.2"  onchange="updateConfig('go_forward_server', 'min_velocity', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="maxvelocity">Max Velocity :</label>
+                    <input type="number" id="maxvelocity" step="0.01" value="1.2" onchange="updateConfig('go_forward_server', 'max_velocity', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="gf_controlfrequency">Control Frequency :</label>
+                    <input type="number" id="gf_controlfrequency" step="0.01" value="20.0" onchange="updateConfig('go_forward_server', 'control_frequency', this.value)">
+                </div>
+            </div>
+
+            <!-- Lock Target -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Lock Target</h3>
+                <div class="config-row">
+                    <label for="laseroffset">Laser Offset :</label>
+                    <input type="number" id="laseroffset" step="0.01" value="0.02"  onchange="updateConfig('lock_target_server', 'cam_laser_offset', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="min_radius">Min Radius :</label>
+                    <input type="number" id="min_radius" step="0.01" value="10" onchange="updateConfig('lock_target_server', 'min_radius', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="max_radius">Max Radius :</label>
+                    <input type="number" id="max_radius" step="0.01" value="25" onchange="updateConfig('lock_target_server', 'max_radius', this.value)">
+                </div>
+            </div>
+
+            <!-- Sign Detector -->
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Sign Detector</h3>
+                <div class="config-row">
+                    <label for="conf_threshold">Confidence Threshold:</label>
+                    <input type="number" id="conf_threshold" step="0.01" value="0.55" min="0" max="1" onchange="updateConfig('sign_detector', 'confidence_threshold', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="inference">Inference Size:</label>
+                    <input type="number" id="inference" step="0.01" value="832" onchange="updateConfig('sign_detector', 'inference_size', this.value)">
+                </div>
+            </div>
+
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Odom Node</h3>
+                <div class="config-row">
+                    <label for="wheel_radius">Wheel Radius:</label>
+                    <input type="number" id="wheel_radius" step="0.001" value="0.125" onchange="updateConfig('odom_node', 'wheel_radius', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="wheel_separation">Wheel Separation:</label>
+                    <input type="number" id="wheel_separation" step="0.01" value="0.92" onchange="updateConfig('odom_node', 'wheel_separation', this.value)">
+                </div>
+            </div>
+
+            <div class="config-block bordered">
+                <h3><span class="status-indicator status-connected"></span>Joy Controller</h3>
+                <div class="config-row">
+                    <label for="joy_max_linear_velocity">Max Linear Velocity:</label>
+                    <input type="number" id="joy_max_linear_velocity" step="0.01" value="0.8" onchange="updateConfig('joy_controller', 'max_linear_velocity', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="max_angular_velocity_simulation">Max Angular Velocity (Sim):</label>
+                    <input type="number" id="max_angular_velocity_simulation" step="0.1" value="3.0" onchange="updateConfig('joy_controller', 'max_angular_velocity_simulation', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="max_angular_velocity_practice">Max Angular Velocity (Practice):</label>
+                    <input type="number" id="max_angular_velocity_practice" step="0.1" value="1.6" onchange="updateConfig('joy_controller', 'max_angular_velocity_practice', this.value)">
+                </div>
+                <div class="config-row">
+                    <label for="lock_target_tolerance">Lock Target Tolerance:</label>
+                    <input type="number" id="lock_target_tolerance" step="0.1" value="0.6" onchange="updateConfig('joy_controller', 'lock_target_tolerance', this.value)">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="config-actions">
+            <button class="gui-button" onclick="clearChanges()">Değişiklikleri Temizle</button>
+            <button class="gui-button" onclick="requestCurrentConfig()">Mevcut Config'i Al</button>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // WebSocket connection and config storage
+        let ws = null;
+        let currentConfigData = {};
+        
+        // Config field mapping - her device için hangi input field'larının olduğunu belirtiyor
+        const configFieldMapping = {
+            'vision_transformer': {
+                'default_inflation_radius': 'vt_inflation',
+                'sharp_turn_inflation_radius': 'vt_sharp_inflation',
+                'cautious_inflation_radius': 'vt_cautious_inflation',
+                'min_line_length': 'vt_min_length',
+                'max_line_gap': 'vt_max_gap',
+                'max_detection_angle': 'vt_angle',
+                'blur_iters': 'vt_blur'
+            },
+            'path_tracker': {
+                'kp_angular': 'kpangular',
+                'kd_angular': 'kdangular',
+                'max_angular_velocity': 'maxangular',
+                'max_linear_velocity': 'maxlinear',
+                'min_angular_velocity': 'minangular',
+                'recovery_aggression_coeff': 'recovery_aggression',
+                'recovery_rotation_time': 'recovery_time'
+            },
+            'path_planner': {
+                'goal_tolerance': 'goaltolerance',
+                'goal_cost_threshold': 'goal_cost_thresh',
+                'x_coeff': 'x_coeff',
+                'y_coeff': 'y_coeff',
+                'depth_coeff': 'depth_coeff',
+                'goal_search_depth': 'goal_searchdepth',
+                'goal_selection_cost_coeff': 'goal_selection_cost',
+                'path_find_cost_coeff': 'path_find_distancecoeff',
+                'path_find_distance_coeff': 'path_find_costcoeff'
+            },
+            'ramp_alignment_server': {
+                'kp': 'kp',
+                'kd': 'kd',
+                'degree_tolerance': 'degree_tol',
+                'max_execution_time': 'execution_time',
+                'max_angular_velocity': 'max_angular_vel',
+                'min_angular_velocity': 'min_angular_vel'
+            },
+            'align_with_path_server': {
+                'kp_angular': 'align_kpangular',
+                'kd_angular': 'align_kdangular',
+                'angle_tolerance': 'angtolerance',
+                'max_execution_time': 'max_executiontime',
+                'max_angular_velocity': 'max_angularvelocity',
+                'min_angular_velocity': 'min_angularvelocity',
+                'control_frequency': 'align_controlfrequency'
+            },
+            'go_forward_server': {
+                'min_velocity': 'minvelocity',
+                'max_velocity': 'maxvelocity',
+                'control_frequency': 'gf_controlfrequency'
+            },
+            'go_forward_server': {
+                'min_velocity': 'minvelocity',
+                'max_velocity': 'maxvelocity',
+                'control_frequency': 'gf_controlfrequency'
+            },
+            'lock_target_server': {
+                'cam_laser_offset': 'laseroffset',
+                'min_radius': 'min_radius',
+                'max_radius': 'max_radius'
+            },
+            'sign_detector': {
+                'confidence_threshold': 'conf_threshold',
+                'inference_size': 'inference'
+            },
+            'odom_node': {
+                'wheel_radius': 'wheel_radius',
+                'wheel_separation': 'wheel_separation'
+            },
+            'joy_controller': {
+                'max_linear_velocity': 'joy_max_linear_velocity',
+                'max_angular_velocity_simulation': 'max_angular_velocity_simulation',
+                'max_angular_velocity_practice': 'max_angular_velocity_practice',
+                'lock_target_tolerance': 'lock_target_tolerance'
+            }
+        };
+        
+        function connectWebSocket() {
+            try {
+                ws = new WebSocket('ws://192.168.1.10:4000');
+                
+                ws.onopen = function() {
+                    showNotification('WebSocket bağlantısı başarılı', 'success');
+                };
+                
+                ws.onmessage = function(event) {
+                    try {
+                        const data = JSON.parse(event.data);
+                        handleWebSocketMessage(data);
+                    } catch (error) {
+                        console.error('WebSocket mesajı parse edilemedi:', error);
+                    }
+                };
+                
+                ws.onclose = function() {
+                    showNotification('WebSocket bağlantısı kesildi', 'error');
+                };
+                
+                ws.onerror = function() {
+                    showNotification('WebSocket bağlantı hatası', 'error');
+                };
+            } catch (error) {
+                console.log('WebSocket connection not available:', error);
+            }
+        }
+
+        function handleWebSocketMessage(data) {
+            // Config data mesajlarını yakala ve input fieldları güncelle
+            if (data.mode === 'config_data') {
+                updateInputFromConfig(data.device, data.config);
+                console.log(`Config received for ${data.device}:`, data.config);
+            }
+            // Diğer mesaj tiplerini de burada işleyebilirsiniz
+        }
+
+        function updateInputFromConfig(deviceName, config) {
+            // Gelen config verilerini input alanlarına yansıt
+            currentConfigData[deviceName] = config;
+            
+            const fieldMapping = configFieldMapping[deviceName];
+            if (!fieldMapping) {
+                console.log(`${deviceName} için field mapping bulunamadı`);
+                return;
+            }
+
+            for (const [configKey, inputId] of Object.entries(fieldMapping)) {
+                if (config.hasOwnProperty(configKey)) {
+                    const inputElement = document.getElementById(inputId);
+                    if (inputElement) {
+                        inputElement.value = config[configKey];
+                        console.log(`${deviceName}.${configKey} = ${config[configKey]} güncellendi`);
+                    } else {
+                        console.log(`Input element bulunamadı: ${inputId}`);
+                    }
+                }
+            }
+        }
+
+        function updateAllInputsFromCurrentConfig() {
+            // Tüm mevcut config verilerini input alanlarına yansıt
+            for (const [deviceName, config] of Object.entries(currentConfigData)) {
+                updateInputFromConfig(deviceName, config);
+            }
+            showNotification('Tüm input alanları güncellendi', 'success');
+        }
+
+        function updateConfig(device, param, value) {
+            console.log(`Updating ${device}.${param} = ${value}`);
+            
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    mode: "update_config",
+                    device: device,
+                    param: param,
+                    value: parseFloat(value) || value
+                };
+                ws.send(JSON.stringify(message));
+                
+                // Local config'i de güncelle
+                if (!currentConfigData[device]) {
+                    currentConfigData[device] = {};
+                }
+                currentConfigData[device][param] = parseFloat(value) || value;
+                
+                showNotification(`${device}.${param} güncellendi`, 'success');
+            } else {
+                showNotification('WebSocket bağlantısı yok', 'error');
+            }
+        }
+
+        function loadConfig() {
+            const configFile = document.getElementById('load_config_name').value;
+            if (!configFile) {
+                showNotification('Yüklenecek config dosya adı giriniz', 'error');
+                return;
+            }
+            
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    mode: "load_config",
+                    preset_name: configFile
+                };
+                ws.send(JSON.stringify(message));
+                showNotification(`${configFile} yüklendi`, 'success');
+                
+                // Config yüklendikten sonra biraz bekleyip input alanlarını güncelle
+                setTimeout(() => {
+                    requestCurrentConfig();
+                }, 1000);
+            } else {
+                showNotification('WebSocket bağlantısı yok', 'error');
+            }
+        }
+
+        function saveConfig() {
+            const configFile = document.getElementById('save_config_name').value;
+            if (!configFile) {
+                showNotification('Kaydedilecek config dosya adı giriniz', 'error');
+                return;
+            }
+            
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    mode: "save_config",
+                    preset_name: configFile
+                };
+                ws.send(JSON.stringify(message));
+                showNotification(`Mevcut config ${configFile} olarak kaydedildi`, 'success');
+            } else {
+                showNotification('WebSocket bağlantısı yok', 'error');
+            }
+        }
+
+        function requestCurrentConfig() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    mode: "get_current_config"
+                };
+                ws.send(JSON.stringify(message));
+                showNotification('Mevcut config verileri istendi', 'success');
+            } else {
+                showNotification('WebSocket bağlantısı yok', 'error');
+            }
+        }
+
+        function clearChanges() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                const defaultValue = input.getAttribute('value') || '0';
+                input.value = defaultValue;
+            });
+            
+            currentConfigData = {};
+            showNotification('Tüm değişiklikler temizlendi', 'success');
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize WebSocket connection on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            connectWebSocket();
+            // Sayfa yüklendiğinde mevcut config'i iste
+            setTimeout(() => {
+                requestCurrentConfig();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

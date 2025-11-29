@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Mousebot
+    </title>
+    <meta name="viewport" content="user-scalable=no">
+    <meta encoding="utf-8">
+    <meta charset="UTF-8">
+    <meta lang="tr">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/roslibjs/1.1.0/roslib.min.js"></script>
+    <style>
+        .container{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            margin:auto;
+            padding:0;
+        }
+        @media only screen and (max-height:1000px){
+            #drive-mode-text{
+                display: none;
+            }
+            #connection-status{
+                display: none;
+            }
+            #speed-bar{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body  scroll="no" style="position:fixed; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+color:rgb(128, 128, 128);
+font-size: xx-large;">
+    <div class="container" style="width:80%; margin:auto; display:flex; flex-direction: column;">
+        <div>
+            <!-- <h1 style="text-align:center; color:#A00000;">
+                UMAYBOT </h1> -->
+            <h1 id="drive-mode-text" style="color:#A00000; text-align: center; margin:auto;">
+                Manuel Sürüş
+            </h1>
+            <h1 id="connection-status" style="color:#A00000; text-align: center; margin: auto;">
+                Bağlantı Kopuk
+            </h1>
+        </div>
+        <p id="speed-bar" style="text-align: center;">
+            X: <span id="x_coordinate"> </span>
+            Y: <span id="y_coordinate"> </span>
+            Speed: <span id="speed"> </span> %
+            Angle: <span id="angle"> </span>
+        </p>
+        <canvas id="canvas" name="game"></canvas>
+    </div>
+    <script>
+        var ros = new ROSLIB.Ros({
+            url : 'ws://192.168.79.147:9090'
+        });
+
+        ros.on('connection', function() {
+            console.log('Connected to websocket server.');
+            document.getElementById("connection-status").innerText = "Bağlantı Kurulu"
+
+            if(drive_mode_client.mode != null){
+                handle_interface_mode();
+            }
+        });
+
+        ros.on('error', function(error) {
+            console.log('Error connecting to websocket server: ', error);
+            document.getElementById("connection-status").innerText = "Bağlantı Kopuk"
+        });
+
+        ros.on('close', function() {
+            console.log('Connection to websocket server closed.');
+        });
+
+        cmd_pub = new ROSLIB.Topic({
+                ros: ros,
+                name: '/cmd_vel_mux',
+                messageType: 'geometry_msgs/Twist' 
+            });
+        
+        var twist = new ROSLIB.Message({
+            linear: {
+                x: 0,
+                y: 0,
+                z: 0
+            },
+            angular: {
+                x: 0,
+                y: 0,
+                z: 0
+            }
+        });
+
+    </script>
+    <script>
+        drive_mode_client = {
+            mode: "" ,
+            node_handle: new ROSLIB.Topic({
+                ros: ros,
+                name: "/drive_mode",
+                messageType: "std_msgs/String"
+            })
+        };
+        drive_mode_client.node_handle.subscribe(function(message){
+            drive_mode_client.mode = message.data;
+            handle_interface_mode();
+        })
+
+        const mode_array = ["e-stop", "manuel", "autonomous"];
+
+        function handle_interface_mode(){
+            interface_mode = drive_mode_client.mode;
+
+            var mode_message  = new ROSLIB.Message({
+                data: drive_mode_client.mode
+            });
+
+            var actionClient = new ROSLIB.ActionClient({
+                ros: ros,
+                serverName: '/move_base',
+                actionName: 'move_base_msgs/MoveBaseAction'
+            });
+
+            console.log("DRIVE MODE CLIENT MODE DATA: " + drive_mode_client.mode);
+            
+            for(let i=0; i < mode_array.length; i++){
+                current_mode = mode_array[i];
+                if(current_mode == interface_mode){
+                    enable_elements(current_mode);
+                }
+                else{
+                    disable_elements(current_mode);
+                }
+            }
+
+            if(interface_mode == "e-stop"){
+                document.getElementById("drive-mode-text").innerText = "E-stop";
+                document.getElementById("canvas").disabled=true;
+                stop_the_vehicle();
+            }
+            else if(interface_mode == "manuel"){
+                document.getElementById("drive-mode-text").innerText = "Manuel Sürüş";
+                // document.getElementById("e-stop-sign").innerText = "E-stop Pasif";
+                document.getElementById("canvas").disabled=false;
+                cancel_movebase_goal();
+            }
+            else{
+                document.getElementById("drive-mode-text").innerText = "Otonom Sürüş";
+                // document.getElementById("e-stop-sign").innerText = "E-stop Pasif";
+                document.getElementById("canvas").disabled=true;
+            }
+            console.log("Interface handler finished successfully->mode set to " + interface_mode);
+        }
+        function cancel_movebase_goal(){
+            if(actionClient){
+                actionClient.cancel();
+            }
+            console.log("move_base action goal is canceled.");
+        }
+        function stop_the_vehicle(){
+            //We're not handling cmd_vel_msg filtering here, it's handled in rake_web script cmd_vel_pub
+            console.log("Stopped the vehicle, current cmd_vel: " + cmd_vel_client.lin_x + "," + cmd_vel_client.ang_z);
+        }
+        function disable_elements(mode){
+            button_query = "button." + "ban-" + mode;
+            input_query = "input." + "ban-" + mode;
+            
+            const button_list = document.querySelectorAll(button_query);
+            const input_list = document.querySelectorAll(input_query);
+
+            for(let i=0; i < button_list.length; i++){
+                button_list[i].disabled = true;
+            }
+            for(let i=0; i < input_list.length; i++){
+                input_list[i].disabled = true;
+            }
+
+            console.log("Elements of " +  mode + "mode" + "disabled");
+        }
+        function enable_elements(mode){
+            button_query = "button." + "active-" + mode;
+            input_query = "input." + "active-" + mode;
+
+            const button_list = document.querySelectorAll(button_query);
+            const input_list = document.querySelectorAll(input_query);
+
+            for(let i=0; i < button_list.length; i++){
+                button_list[i].disabled = false;
+            }
+            for(let i=0; i < input_list.length; i++){
+                input_list[i].disabled = false;
+            }
+            
+            console.log("Elements of " +  mode + "mode" + "enabled");
+        }
+    </script>
+    <script>
+        var move_base_goal = new ROSLIB.Topic({
+            ros: ros,
+            name:"move_base/goal",
+            messageType: "move_base_msgs/MoveBaseGoal"
+        });
+
+    </script>
+    <script>
+        function angle_to_angular_speed(speed, angle_in_degrees){
+            return_angle = 0.0;
+            return_speed = speed;
+            if(angle_in_degrees > 0 && angle_in_degrees < 90){
+                return_angle = angle_in_degrees - 90;
+                return_speed = speed;
+            }
+            else if(angle_in_degrees > 90 && angle_in_degrees < 180){
+                return_angle = angle_in_degrees - 90;
+                return_speed = speed;
+            }
+            else if(angle_in_degrees > 180 && angle_in_degrees < 270){
+                return_angle = angle_in_degrees - 270;
+                return_speed = -speed;
+            }
+            else{
+                return_angle = angle_in_degrees - 270;
+                return_speed = -speed;
+            }
+            return {w: (return_angle / 180) * Math.PI, v: return_speed};
+        }
+        var canvas, ctx;
+
+        window.addEventListener('load', () => {
+
+            canvas = document.getElementById('canvas');
+            ctx = canvas.getContext('2d');          
+            resize(); 
+
+            document.addEventListener('mousedown', startDrawing);
+            document.addEventListener('mouseup', stopDrawing);
+            document.addEventListener('mousemove', Draw);
+
+            document.addEventListener('touchstart', startDrawing);
+            document.addEventListener('touchend', stopDrawing);
+            document.addEventListener('touchcancel', stopDrawing);
+            document.addEventListener('touchmove', Draw);
+            window.addEventListener('resize', resize);
+
+            document.getElementById("x_coordinate").innerText = 0;
+            document.getElementById("y_coordinate").innerText = 0;
+            document.getElementById("speed").innerText = 0;
+            document.getElementById("angle").innerText = 0;
+        });
+
+      
+
+
+        var width, height, radius, x_orig, y_orig;
+        function resize() {
+            width = window.innerWidth;
+            radius = 200;
+            height = radius * 6.5;
+            ctx.canvas.width = width;
+            ctx.canvas.height = height;
+            background();
+            joystick(width / 2, height / 3);
+        }
+
+        function background() {
+            x_orig = width / 2;
+            y_orig = height / 3;
+
+            ctx.beginPath();
+            ctx.arc(x_orig, y_orig, radius + 20, 0, Math.PI * 2, true);
+            ctx.fillStyle = '#ECE5E5';
+            ctx.fill();
+        }
+
+        function joystick(width, height) {
+            ctx.beginPath();
+            ctx.arc(width, height, radius, 0, Math.PI * 2, true);
+            ctx.fillStyle = '#A00000';
+            ctx.fill();
+            ctx.strokeStyle = '#B90E0A';
+            ctx.lineWidth = 8;
+            ctx.stroke();
+        }
+
+        let coord = { x: 0, y: 0 };
+        let paint = false;
+
+        function getPosition(event) {
+            var mouse_x = event.clientX || event.touches[0].clientX;
+            var mouse_y = event.clientY || event.touches[0].clientY;
+            coord.x = mouse_x - canvas.offsetLeft;
+            coord.y = mouse_y - canvas.offsetTop;
+        }
+
+        function is_it_in_the_circle() {
+            var current_radius = Math.sqrt(Math.pow(coord.x - x_orig, 2) + Math.pow(coord.y - y_orig, 2));
+            if (radius >= current_radius) return true
+            else return false
+        }
+
+
+        function startDrawing(event) {
+            paint = true;
+            getPosition(event);
+            if (is_it_in_the_circle()) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                background();
+                joystick(coord.x, coord.y);
+                Draw();
+            }
+        }
+
+
+        function stopDrawing() {
+            paint = false;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            background();
+            joystick(width / 2, height / 3);
+            document.getElementById("x_coordinate").innerText = 0;
+            document.getElementById("y_coordinate").innerText = 0;
+            document.getElementById("speed").innerText = 0;
+            document.getElementById("angle").innerText = 0;
+
+            twist.linear.x = 0.0;
+            twist.angular.z = 0.0;
+
+            cmd_pub.publish(twist);
+
+            console.log("Current cmd_vel msg:" + twist.linear.x +  ',' + twist.angular.z);
+        }
+        
+        function Draw(event) {
+
+            if (paint) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                background();
+                var angle_in_degrees,x, y, speed;
+                var angle = Math.atan2((coord.y - y_orig), (coord.x - x_orig));
+
+                if (Math.sign(angle) == -1) {
+                    angle_in_degrees = Math.round(-angle * 180 / Math.PI);
+                }
+                else {
+                    angle_in_degrees =Math.round( 360 - angle * 180 / Math.PI);
+                }
+
+
+                if (is_it_in_the_circle()) {
+                    joystick(coord.x, coord.y);
+                    x = coord.x;
+                    y = coord.y;
+                }
+                else {
+                    x = radius * Math.cos(angle) + x_orig;
+                    y = radius * Math.sin(angle) + y_orig;
+                    joystick(x, y);
+                }
+
+            
+                getPosition(event);
+
+                var speed =  Math.round(100 * Math.sqrt(Math.pow(x - x_orig, 2) + Math.pow(y - y_orig, 2)) / radius);
+
+                var x_relative = Math.round(x - x_orig);
+                var y_relative = Math.round(y - y_orig);
+                
+
+                document.getElementById("x_coordinate").innerText =  x_relative;
+                document.getElementById("y_coordinate").innerText = y_relative ;
+                document.getElementById("speed").innerText = speed;
+                document.getElementById("angle").innerText = angle_in_degrees;
+
+
+                vel_data = angle_to_angular_speed(speed, angle_in_degrees)
+
+                twist.linear.x = vel_data.v;
+                twist.angular.z = vel_data.w;
+
+                cmd_pub.publish(twist);
+                console.log("Current cmd_vel msg:" + twist.linear.x +  ',' + twist.angular.z);
+                // send( x_relative,y_relative,speed,angle_in_degrees);
+            }
+        } 
+    </script>
+</body>
+</html><br>

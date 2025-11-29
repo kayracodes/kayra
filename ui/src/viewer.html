@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/sensors.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/roslibjs/1.1.0/roslib.min.js"></script>
+    <title>Sensors</title>
+</head>
+<body>
+    <div class="header bordered">
+        <div class="header-bar">
+            <h1>İTÜ RAKE KOMUTA MERKEZİ</h1>
+        </div>
+        <div class="header-img">
+            <img src="static/rake.png">
+        </div>
+    </div>
+    
+    <div class="sensors">
+        <div class="sensor-table-2 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    Paralel
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Meridyen
+                </p>
+            </div>
+            <div class="row-title">
+                <p>
+                    GPS
+                </p>
+            </div>
+            <div class="table-cell">
+                <p id="gps_lat">
+                    41.1041792
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="gps_long">
+                    29.016064
+                </p>
+            </div>
+        </div>
+        <div class="sensor-table-2 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    Min Distance
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Max Distance
+                </p>
+            </div>
+
+            <div class="row-title">
+                <p>
+                    Ramp 
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="ramp_min_distance">
+                    alınamadı
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="ramp_max_distance">
+                    alınamadı
+                </p>
+            </div>
+        </div>
+        <div class="sensor-table-2 bordered">
+            <div class="empty-cell"></div>
+            <div class="table-title">
+                <p>
+                    Doğrusal x
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Açısal z
+                </p>
+            </div>
+
+            <div class="row-title">
+                <p>
+                    Hız
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="cmd_linear_x">
+                    alınamadı
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="cmd_angular_z">
+                    alınamadı
+                </p>
+            </div>
+        </div>
+        <div class="sensor-table-3 bordered">
+            <div class="table-title">
+                <p>
+                    In Water
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Laser_On
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Pan
+                </p>
+            </div>
+            <div class="table-title">
+                <p>
+                    Tilt
+                </p>
+            </div>       
+            <div class="table-cell" >
+                <p id="in_water">
+                   alınamadı
+                </p>
+            </div>
+            <div class="table-cell" >
+                <p id="laser_on">
+                    alınamadı
+                </p>
+            </div>
+            <div class="table-cell">
+                <p id="pan_value">
+                    alınamadı
+                </p>
+            </div>
+            <div class="table-cell">
+                <p id="tilt_value">
+                    alınamadı
+                </p>
+            </div>
+        </div>
+    </div>
+           
+    <div class="container">
+        <div class="status-bar bordered">
+            <div class="status-item">
+                <div class="status-card">
+                    <div class="status-title">
+                        <h2>
+                            Teknofest 2025
+                        </h2>
+                    </div>
+                    <div class="status-img">
+                        <img src="static/teknofest.png">
+                    </div>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title" >
+                    <h2 id="e-stop-sign">
+                        E-stop
+                    </h2>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2 id="sim-time">
+                        Simülasyon
+                    </h2>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2 id="connection-status">
+                        Bağlantı
+                    </h2>
+                </div>
+            </div>
+            <div class="status-item">
+                <div class="status-title">
+                    <h2 id="drive-mode-text">
+                        Manuel Sürüş
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="actions bordered">
+            <h3 class="gui-title">Komutlar</h3>
+            <button class="gui-button ban-e-stop active-manuel active-autonomous" onclick="EstopEnterButton()">E-stop Gir</button>
+            <button class="gui-button active-manuel active-autonomous active-e-stop" id="exit-e-stop-button" onclick="EstopExitButton()" disabled>E-stop Çık</button>
+            <input type="text" id="planner_name" placeholder="Mission Json: ">
+            <button class="gui-button" style="height: 40px;" id="send-planner-button" onclick="sendPlanner()">Gönder</button>
+            <h3 class="gui-title">Bağlantılar</h3>
+            <a class="gui-link" href="wounded3.html">Konfigürasyon</a>
+        </div>
+        <div class="cam1 bordered">
+            <div class="gui-text">
+                <p>Ön Kamera</p>
+            </div>
+            <img id="front_camera" alt="Ön Kamera" style="object-fit: cover;">
+        </div>
+        <div class="cam3 bordered">
+            <div class="gui-text">
+                <p>Rear Camera & Occupancy Grid</p>
+            </div>
+            <div class="split-camera-container">
+                <div class="split-camera-item">
+                    <div class="split-camera-label">
+                        <p>Rear Camera</p>
+                    </div>
+                    <img id="rear_camera" alt="rear_camera" style="width: 100%; object-fit: cover;">
+                </div>
+                <div class="split-camera-item">
+                    <div class="split-camera-label">
+                        <p>Occupancy Grid</p>
+                    </div>
+                    <img id="occ_grid" alt="occ_grid" style="width: 100%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+        
+        <div class="sidebar bordered">
+            <div style="text-align: center; color: #fff; background-color: #AA0000; padding: 10px;">
+                <h3> Algılanan Tabela: <span id="signNumber">-</span></h3>
+            </div>
+
+            <div style="text-align: center; color: #fff; background-color: #AA0000; padding: 10px;">
+                <h3> System State: <span id="systemState">-</span></h3>
+            </div>
+        </div>
+        
+        <div class="cam2 bordered">
+            <div class="gui-text">
+                <p>Atış Kamerası</p>
+            </div>
+            <img id="shoot_camera" alt="Shoot Kamera" style="width: 100%; object-fit: cover;">
+            <!-- <div class="gui-cam">
+                
+            </div> -->
+        </div>
+
+        <div class="cam4 bordered">
+            <div class="gui-text">
+                <p>Others</p>
+            </div>
+            <div class="split-camera-container">
+                <div class="split-camera-item">
+                    <div class="split-camera-label">
+                        <p>Ramp Detection</p>
+                    </div>
+                    <img id="debug_1" alt="Debug 1" style="width: 100%; object-fit: cover;">
+                </div>
+                <div class="split-camera-item">
+                    <div class="split-camera-label">
+                        <p>Path</p>
+                    </div>
+                    <img id="debug_2" alt="Debug 2" style="width: 100%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const ws = new WebSocket('ws://192.168.1.10:4000')
+        
+        let isEstopActive = false;
+
+        function EstopEnterButton() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    mode: "estop_enter"
+                };
+                ws.send(JSON.stringify(message));
+                
+                updateEstopButtons(true);
+            }
+            else{
+                console.error("WebSocket is not open");
+            }
+        }
+
+        function EstopExitButton() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    mode: "estop_exit"
+                };
+                ws.send(JSON.stringify(message));
+                
+                updateEstopButtons(false);
+            }
+            else{
+                console.error("WebSocket is not open");
+            }
+        }
+
+        function updateEstopButtons(estopActive) {
+            const estopEnterBtn = document.querySelector('button[onclick="EstopEnterButton()"]');
+            const estopExitBtn = document.getElementById('exit-e-stop-button');
+            const estopStatusElement = document.getElementById('e-stop-sign');
+            
+            if (estopActive) {
+                estopEnterBtn.disabled = true;
+                estopExitBtn.disabled = false;
+                estopStatusElement.style.color = '#ff0000';
+                estopStatusElement.textContent = 'E-STOP AKTİF';
+                isEstopActive = true;
+            } else {
+                estopEnterBtn.disabled = false;
+                estopExitBtn.disabled = true;
+                estopStatusElement.style.color = '#00ff00';
+                estopStatusElement.textContent = 'E-STOP DEVRE DIŞI';
+                isEstopActive = false;
+            }
+        }
+
+        function sendPlanner() {
+            const plannerName = document.getElementById("planner_name").value;
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                const message = {
+                    mode: "send_planner",
+                    data: plannerName
+                };
+                ws.send(JSON.stringify(message));
+            }
+            else{
+                console.error("WebSocket is not open");
+            }
+        }
+
+        ws.onmessage = (event) => {
+
+            const data = JSON.parse(event.data)
+
+            if (data.topic && data.format === "png_base64" && data.image){
+                const url = `data:image/png;base64,${data.image}`;
+
+                if (data.topic.includes("front_camera")) {
+                document.getElementById("front_camera").src = url;
+                } 
+                
+                else if (data.topic.includes("rear_camera")) {
+                document.getElementById("rear_camera").src = url;
+                }
+
+                else if (data.topic.includes("shoot_camera")) {
+                document.getElementById("shoot_camera").src = url;
+                }
+
+                else if (data.topic.includes("pers_img")){
+                    document.getElementById("debug_1").src = url
+                } 
+                else if (data.topic.includes("pers_mask")){
+                    document.getElementById("occ_grid").src = url
+                } 
+                
+                else if (data.topic.includes("debug_image")){
+                    document.getElementById("debug_2").src = url
+                }
+            }
+            
+            else if(data.topic === "/gps/fix"){
+                document.getElementById("gps_lat").innerText = data.latitude.toFixed(6);
+                document.getElementById("gps_long").innerText = data.longitude.toFixed(6)
+            }
+
+            else if(data.topic === "/ika_controller/motor_feedback"){
+                document.getElementById("cmd_linear_x").innerText = data.v.toFixed(2)
+                document.getElementById("cmd_angular_z").innerText = data.w.toFixed(2)
+            }
+
+            else if(data.topic === "/ika_nav/shoot_command"){
+                document.getElementById("laser_on").innerText = data.laser_on ? "On" : "Off"
+                document.getElementById("pan_value").innerText = data.pan_dir.toFixed(1)
+                document.getElementById("tilt_value").innerText = data.tilt_dir.toFixed(1)
+            }
+
+            else if(data.topic === "/ika_controller/is_in_water"){
+                document.getElementById("in_water").innerText = data.is_in_water ? "Yes" : "No"
+            }
+
+
+            else if(data.topic == "/ika_vision/road_signs"){
+                const SIGN_ID_MAP = {
+                        0: "1",
+                        1: "10",
+                        2: "11",
+                        3: "12",
+                        4: "2",
+                        5: "3",
+                        6: "4",
+                        7: "4-END",
+                        8: "5",
+                        9: "6",
+                        10: "7",
+                        11: "8",
+                        12: "9",
+                        13: "STOP",
+                    }
+                console.log("RoadSign data:", data);
+                const signNumberArray = document.getElementById("signNumber");
+
+                if(data && data.signs && data.signs.length > 0){
+                    signNumberArray.innerText = SIGN_ID_MAP[data.signs[0].id];
+                    console.info("Detected road sign:", data.signs[0].id);
+                }
+                else{
+                    signNumberArray.innerText = "-";
+                }
+            }
+
+            else if(data.topic == "/rake/system_state"){
+                console.log("SystemState data:", data);
+                const systemstate = document.getElementById("systemState");
+                
+                if(data && typeof data.state !== 'undefined'){
+                    const stateNames = {
+                        "MANUAL": 0,
+                        "SEMI_AUTONOMOUS": 1,
+                        "IDLE_AUTONOMOUS": 2,
+                        "SLOW_AUTONOMOUS": 3,
+                        "FAST_AUTONOMOUS": 4,
+                        "CAUTIOUS_AUTONOMOUS": 5,
+                        "SHARP_TURN_AUTONOMOUS": 6,
+                        "TARGET_HITTING": 7,
+                        "ACTION_CONTROLLED": 8,
+                        "ACTION_CONTROL_TEST": 9,
+                        "DISABLED": 10,
+                        "SHUTDOWN": 11
+
+                    };
+                    const modeNames = {
+                        0: "SIMULATION", 
+                        1: "PRACTICE",
+                        2: "COMPETITION"
+                    };
+                    const stateText = stateNames[data.state] || data.state;
+                    const modeText = modeNames[data.mode] || data.mode;
+                    const mobility = data.mobility ? " (Mobility On)" : " (Mobility Off)";
+
+                    systemstate.innerText = `${stateText} ${modeText} ${mobility}`;
+                }
+            } 
+
+            else if(data.topic == "/ika_vision/ramp_distance"){
+                document.getElementById("ramp_min_distance").innerText = data.min_distance.toFixed(2);
+                document.getElementById("ramp_max_distance").innerText = data.max_distance.toFixed(2);
+            }
+
+        };
+
+        ws.onerror = (error) => {
+            console.error('WebSocket hatası:', error);
+        };
+
+    </script>

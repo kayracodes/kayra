@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <style>
+        .container{
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            place-items: center;
+            place-content: center, start;
+            grid-template-areas:"a i j";
+            background-color: aquamarine;
+            height:40vh;
+            
+        }
+    
+        #action-bar{
+            grid-area: a;
+            display:grid;
+            grid-template-rows: 1fr 2fr 2fr 4fr;
+            place-items: center, center;
+            place-content: center, start;
+        }
+            #action-bar.status-card{
+                grid-row: 1 / 2;
+            }
+            #action-bar.actions{
+                grid-row: 2 / 3;
+                display: grid;
+                place-items: center;
+                place-content: center;
+                grid-template-rows: repeat(4, 0.5fr);
+            }
+            #action-bar.links{
+                grid-row: 3 / 4;
+                display: grid;
+                grid-template-rows: repeat(4, 0.5fr);
+                place-items:center;
+                place-content:center;
+            }
+            #action-bar.empty1{
+                grid-row: 4 / 5;
+            }
+        #control-bar{
+            grid-area: i;
+            display: grid;
+            grid-template-rows: 1fr 4fr 2fr 2fr;
+            place-items: center;
+            place-content: center, start;
+        }
+            #control-bar.status-card{
+                grid-row: 1 / 2;
+            }
+            #control-bar.imagery{
+                grid-row: 2 / 3;
+            }
+            #control-bar.joy-stick{
+                grid-row: 3 / 4;
+            }
+            #control-bar.keys{
+                grid-row: 4 / 5;
+            }
+        #joint-bar{
+            display: grid;
+            grid-area: j;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 4fr;
+            place-items: center, center;
+            place-content: center, start;
+        }
+            #joint-bar.status-card{
+                grid-row: 1 / 2;
+            }
+            #joint-bar.joint-controller1{
+                display:grid;
+                grid-row: 2 / 3;
+                grid-template-columns: 1fr 1.5fr;
+            }
+            #joint-bar.joint-controller2{
+                display:grid;
+                grid-row: 3 / 4;
+                grid-template-columns: 1fr 1.5fr;
+            }
+            #joint-bar.joint-controller3{
+                display:grid;
+                grid-row: 4 / 5;
+                grid-template-columns: 1fr 1.5fr;
+            }
+            #joint-bar.empty1{
+                grid-row: 5 / 6;
+            }
+            #joint-bar.empty2{
+                grid-row: 6 / 7;
+            }
+
+            .imagery, .joy-stick .keys .status-card{
+                width:100%;
+                height:100%;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="action-bar">
+            <div class="status-card">
+                1
+            </div>
+
+            <div class="actions">
+                <div>
+                    <button type="button" width="0.6fr">button1</button>
+                </div>
+                <div>
+                    <button type="button" width="0.6fr">button2</button>
+                </div>
+                <div>
+                    <button type="button" width="0.6fr">button3</button>
+                </div>
+                <div>
+                    <button type="button" width="0.6fr">button4</button>
+                </div>
+            </div>
+
+            <div class="links">
+                <div>
+                    <a href="#">link1</a>
+                </div>
+                <div>
+                    <a href="#">link2</a>
+                </div>
+                <div>
+                    <a href="#">link3</a>
+                </div>
+                <div>
+                    <a href="#">link4</a>
+                </div>
+            </div>
+
+            <div class="empty1">2</div>
+        </div>
+        <div id="control-bar">
+            <div class="status-card">
+                1
+            </div>
+            <div class="imagery">
+                1
+            </div>
+            <div class="joy-stick">
+                1
+            </div>
+            <div class="keys">
+                1
+            </div>
+        </div>
+        <div id="joint-bar">
+            <div class="status-card">
+                1
+            </div>
+            <div class="joint-controller1">
+                <div>
+                    <p>joint 2</p>
+                </div>
+                <div>
+                    <input type="range" min="1" max="80" value="50" class="slider">
+                </div>
+            </div>
+            <div class="joint-controller2">
+                <div>
+                    <p>joint 2</p>
+                </div>
+                <div>
+                    <input type="range" min="1" max="80" value="50" class="slider">
+                </div>
+            </div>
+            <div class="joint-controller3">
+                <div>
+                    <p>joint 3</p>
+                </div>
+                <div>
+                    <input type="range" min="1" max="80" value="50" class="slider">
+                </div>
+            </div>
+            <div class="empty1">1</div>
+            <div class="empty2">2</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>IGVC Görüntüleme Paneli</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #1a1a1a;
+      color: #f0f0f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #00ff88;
+      margin-bottom: 30px;
+    }
+
+    .camera-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .camera-card {
+      background: #2a2a2a;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px rgba(0, 255, 136, 0.2);
+      text-align: center;
+      max-width: 500px;
+    }
+
+    .camera-card img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #333;
+    }
+
+    .sensor-section {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .sensor-box {
+      background: #222;
+      padding: 15px 20px;
+      border-left: 6px solid #00ff88;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,255,136,0.1);
+    }
+
+    .sensor-box h2 {
+      margin-top: 0;
+      color: #00ff88;
+      font-size: 1.2em;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>IGVC Görüntüleme Paneli</h1>
+
+  <div class="camera-container">
+    <div class="camera-card">
+      <h3>Ön Kamera</h3>
+      <img id="front_camera" alt="Ön Kamera">
+    </div>
+    <div class="camera-card">
+      <h3>Sağ Kamera</h3>
+      <img id="right_camera" alt="Sağ Kamera">
+    </div>
+    <div class="camera-card">
+      <h3>Sol Kamera</h3>
+      <img id="left_camera" alt="Sol Kamera">
+    </div>
+  </div>
+
+  <div class="sensor-section">
+    <div class="sensor-box">
+      <h2>GPS Verisi</h2>
+      <pre id="gps_data">Yükleniyor...</pre>
+    </div>
+
+    <div class="sensor-box">
+      <h2>IMU Verisi</h2>
+      <pre id="imu_data">Yükleniyor...</pre>
+    </div>
+
+    <div class="sensor-box">
+      <h2>Odometri Verisi</h2>
+      <pre id="odom_data">Yükleniyor...</pre>
+    </div>
+  </div>
+
+  <script>
+    const ws = new WebSocket('ws://192.168.0.10:4000'); // Jetson IP adresini kontrol et!
+
+    ws.onopen = () => {
+      console.log('WebSocket bağlantısı kuruldu.');
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.topic && data.format === 'jpeg_base64' && data.image) {
+        const url = `data:image/jpeg;base64,${data.image}`;
+
+        if (data.topic.includes("rear_camera")) {
+          document.getElementById("front_camera").src = url;
+        } else if (data.topic.includes("shoot_camera")) {
+          document.getElementById("right_camera").src = url;
+        } else if (data.topic.includes("front_camera")) {
+          document.getElementById("left_camera").src = url;
+        }
+
+      } else if (data.topic === "/gps/fix") {
+        document.getElementById("gps_data").innerText =
+          `Latitude: ${data.latitude?.toFixed(6)}\nLongitude: ${data.longitude?.toFixed(6)}\nAltitude: ${data.altitude?.toFixed(2)}`;
+
+      } else if (data.topic === "/imu/data") {
+        document.getElementById("imu_data").innerText =
+          `Orientation:\n  x=${data.orientation?.x?.toFixed(3)}, y=${data.orientation?.y?.toFixed(3)}, z=${data.orientation?.z?.toFixed(3)}, w=${data.orientation?.w?.toFixed(3)}\n` +
+          `Angular Velocity:\n  x=${data.angular_velocity?.x?.toFixed(3)}, y=${data.angular_velocity?.y?.toFixed(3)}, z=${data.angular_velocity?.z?.toFixed(3)}\n` +
+          `Linear Acceleration:\n  x=${data.linear_acceleration?.x?.toFixed(3)}, y=${data.linear_acceleration?.y?.toFixed(3)}, z=${data.linear_acceleration?.z?.toFixed(3)}`;
+
+      } else if (data.topic === "/odometry/global") {
+        document.getElementById("odom_data").innerText =
+          `Position:\n  x=${data.pose?.pose?.position?.x?.toFixed(2)}, y=${data.pose?.pose?.position?.y?.toFixed(2)}\n` +
+          `Orientation:\n  x=${data.pose?.pose?.orientation?.x?.toFixed(3)}, y=${data.pose?.pose?.orientation?.y?.toFixed(3)}`;
+      }
+    };
+
+    ws.onerror = (error) => {
+      console.error('WebSocket hatası:', error);
+    };
+  </script>
+
+</body>
+</html>

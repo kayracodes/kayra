@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <div></div>
+    <title>Document</title>
+    <style>
+        * {
+            margin:0;
+            padding:0;
+        }
+        .container{
+            display:flex;
+            background-color: aqua;
+            padding: 15px;
+            justify-content: space-around;
+            align-items: stretch;
+            /* align-content: flex-start; */
+            align-content: flex-start;
+            flex-wrap: wrap;
+            height: 1200px;
+            /* align-items: flex-start; */
+            /* align-items: flex-end; */
+            /* align-items: baseline */
+        }
+        .item{
+            background-color: brown;
+            padding:20px;
+            margin:10px;
+            font-size: 30px;
+            /* flex-grow: 1; */
+        }
+        
+
+
+        .i8{
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item i1">item1</div>
+        <div class="item i2">item2</div>
+        <div class="item i3">item3</div>
+        <div class="item i4">item4</div>
+
+        <div class="item">item5</div>
+        <div class="item">item6</div>
+        <div class="item">item7</div>
+        <div class="item i8">item8</div>
+    </div>
+
+</body>
+</html>
