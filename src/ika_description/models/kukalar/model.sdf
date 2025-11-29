@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="kukalar">
+    <static>true</static>
+    <link name="kukalar_link">
+      <visual name="kukalar_visual">
+        <geometry>
+          <mesh>
+            <uri>model://kukalar/meshes/kukalar.obj</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="kukalar_collision">
+        <geometry>
+          <mesh>
+            <uri>model://kukalar/meshes/kukalar.obj</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

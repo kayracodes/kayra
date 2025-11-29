@@ -1,0 +1,41 @@
+<launch>
+    <!-- Core -->
+    <node pkg="rake_core" exec="core.py">
+        <param name="mode" value="0" /> 
+        <param name="state" value="0" /> 
+        <param name="mobility" value="0" />
+         <!--Launch in SIMULATION mode, MANUAL state, without mobility-->
+    </node>
+
+    <!-- Gazebo, Rviz Launch -->
+    <include file="$(find ika_description)/launch/ika_gazebo.launch.py">
+        <arg name="world_name" value="ika_parkur3"/>
+    </include>
+    <!-- ROS2 Control Launch -->
+    <include file="$(find ika_controller)/launch/ika_controllers.launch.py"/>
+
+    <!-- Vision Stack -->
+    <node name="vision_transformer" pkg="ika_vision" exec="vision_transformer.py"/>
+    <node name="sign_detector" pkg="ika_vision" exec="sign_detector.py"/>
+
+    <!-- Action Servers -->
+    <node name="align_ramp" pkg="ika_actions" exec="align_ramp.py"/>
+    <node name="align_with_path" pkg="ika_actions" exec="align_with_path.py"/>
+    <node name="lock_target" pkg="ika_actions" exec="lock_target.py"/>
+
+    <!-- Event Detector -->
+    <node name="event_detector" pkg="ika_controller" exec="event_detector.py"/>
+
+    <!-- Joy Controller -->
+    <node name="joy_controller" pkg="ika_controller" exec="joy_controller_state.py"/>
+    
+    <!-- Navigation Stack -->
+    <node name="path_planner" pkg="ika_nav" exec="path_planner.py"/>
+    <node name="path_tracker" pkg="ika_nav" exec="path_tracker.py"/>    
+
+    <!-- Mission Planner -->
+    <node name="mission_planner" pkg="ika_controller" exec="mission_planner.py"/>
+
+    <!-- User Interface -->
+    <node name="ui" pkg="ika_utils" exec="ui.py"/>
+</launch>

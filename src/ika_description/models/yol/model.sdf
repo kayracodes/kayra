@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="yol">
+    <static>true</static>
+    <link name="yol_link">
+      <visual name="yol_visual">
+        <geometry>
+          <mesh>
+            <uri>model://yol/meshes/yol.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="yol_collision">
+        <geometry>
+          <mesh>
+            <uri>model://yol/meshes/yol.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
+

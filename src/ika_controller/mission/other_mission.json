@@ -1,0 +1,27 @@
+{
+  "1": {
+    "actions": [
+      {
+        "type": "method",
+        "action": "go_forward",
+        "action_params": { "speed": 0.5, "time": 20.0 }
+      },
+      {
+        "type": "set_system_state",
+        "action_params": { "state": 0 }
+      }
+    ]
+  },
+  "2": {
+    "actions": [
+        {
+            "type": "action",
+            "action": "align_ramp"
+        },
+        {
+            "type": "action",
+            "action": "align_with_path"
+        }
+    ]
+  }
+}

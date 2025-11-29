@@ -1,0 +1,3 @@
+uint8 state
+uint8 mode
+uint8 mobility

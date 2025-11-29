@@ -1,0 +1,9 @@
+string event_type
+#parameters in json format
+string[] param_names
+string[] param_values
+---
+# Result
+bool success
+string message
+float64 duration

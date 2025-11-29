@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="cizgiler">
+    <static>true</static>
+    <link name="cizgiler_link">
+      <visual name="cizgiler_visual">
+        <geometry>
+          <mesh>
+            <uri>model://cizgiler/meshes/cizgiler.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="cizgiler_collision">
+        <geometry>
+          <mesh>
+            <uri>model://cizgiler/meshes/cizgiler.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

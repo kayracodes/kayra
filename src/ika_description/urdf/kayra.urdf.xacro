@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<robot name="ika" xmlns:xacro="https://www.wiki.ros.org/xacro">
+<xacro:include filename="$(find ika_description)/urdf/kayra_macros.xacro"/>
+<xacro:include filename="$(find ika_description)/urdf/kayra_ros2_control.xacro"/>
+<xacro:include filename="$(find ika_description)/urdf/kayra_gazebo.xacro"/>
+
+<link name="base_footprint"/>
+
+<link name="base_link">
+    <xacro:rect_prism xyz="0 0 0" rpy="0 0 0" width="${base_width}" height="${base_height}" length="${base_length}" mass="15"/>
+</link>
+
+<joint name="base_joint" type="fixed">
+    <origin xyz="0 0 ${chassis_height + base_height/2}" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+</joint>
+
+<link name="right_diff_holder">
+    <xacro:cylinder xyz="0 ${diff_holder_length/2} 0" rpy="${PI/2} 0 0" radius="${profile_radius}" length="${diff_holder_length}" mass="0.4"/>
+</link>
+
+<joint name="right_diff_holder_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_diff_holder"/>
+    <origin xyz="0 ${-diff_holder_length - base_width/2} 0" rpy="0 0 0"/>
+</joint>
+
+<link name="left_diff_holder">
+    <xacro:cylinder xyz="0 ${-diff_holder_length/2} 0" rpy="${PI/2} 0 0" radius="${profile_radius}" length="${diff_holder_length}" mass="0.4"/>
+</link>
+
+<joint name="left_diff_holder_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_diff_holder"/>
+    <origin xyz="0 ${diff_holder_length + base_width/2} 0" rpy="0 0 0"/>
+</joint>
+
+<link name="rear_right_wheel_holder">
+    <xacro:cylinder xyz="${wheel_holder_x/2} 0 ${wheel_holder_z/2}" rpy="0 ${wheel_holder_tilt} 0" radius="${profile_radius}" length="${wheel_holder_length}" mass="2"/>
+</link>
+
+<joint name="rear_right_wheel_holder_joint" type="fixed">
+    <parent link="right_diff_holder"/>
+    <child link="rear_right_wheel_holder"/>
+    <origin xyz="${-wheel_holder_x} 0 ${-wheel_holder_z}" rpy="0 0 0"/>
+</joint>
+
+<link name="rear_left_wheel_holder">
+    <xacro:cylinder xyz="${wheel_holder_x/2} 0 ${wheel_holder_z/2}" rpy="0 ${wheel_holder_tilt} 0" radius="${profile_radius}" length="${wheel_holder_length}" mass="2"/>
+</link>
+
+<joint name="rear_left_wheel_holder_joint" type="fixed">
+    <parent link="left_diff_holder"/>
+    <child link="rear_left_wheel_holder"/>
+    <origin xyz="${-wheel_holder_x} 0 ${-wheel_holder_z}" rpy="0 0 0"/>
+</joint>
+
+<link name="front_right_wheel_holder">
+    <xacro:cylinder xyz="${-wheel_holder_x/2} 0 ${wheel_holder_z/2}" rpy="0 ${-wheel_holder_tilt} 0" radius="${profile_radius}" length="${wheel_holder_length}" mass="2"/>
+</link>
+
+<joint name="front_right_wheel_holder_joint" type="fixed">
+    <parent link="right_diff_holder"/>
+    <child link="front_right_wheel_holder"/>
+    <origin xyz="${wheel_holder_x} 0 ${-wheel_holder_z}" rpy="0 0 0"/>
+</joint>
+
+<link name="front_left_wheel_holder">
+    <xacro:cylinder xyz="${-wheel_holder_x/2} 0 ${wheel_holder_z/2}" rpy="0 ${-wheel_holder_tilt} 0" radius="${profile_radius}" length="${wheel_holder_length}" mass="2"/>
+</link>
+
+<joint name="front_left_wheel_holder_joint" type="fixed">
+    <parent link="left_diff_holder"/>
+    <child link="front_left_wheel_holder"/>
+    <origin xyz="${wheel_holder_x} 0 ${-wheel_holder_z}" rpy="0 0 0"/>
+</joint>
+
+<link name="front_right_wheel">
+    <xacro:cylinder_wheel xyz="0 0 0" rpy="${PI/2} 0 0" radius="${wheel_radius}" length="${wheel_length}" mass="${wheel_mass}"/>
+</link>
+<joint name="front_right_wheel_joint" type="continuous">
+    <parent link="front_right_wheel_holder"/>
+    <child link="front_right_wheel"/>
+    <origin xyz="0 ${-wheel_length/2 - profile_radius} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="${max_effort}" velocity="${max_velocity}"/>
+</joint>
+
+<link name="rear_right_wheel">
+    <xacro:cylinder_wheel xyz="0 0 0" rpy="${PI/2} 0 0" radius="${wheel_radius}" length="${wheel_length}" mass="${wheel_mass}"/>
+</link>
+<joint name="rear_right_wheel_joint" type="continuous">
+    <parent link="rear_right_wheel_holder"/>
+    <child link="rear_right_wheel"/>
+    <origin xyz="0 ${-wheel_length/2 - profile_radius} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="${max_effort}" velocity="${max_velocity}"/>
+</joint>
+
+<link name="front_left_wheel">
+    <xacro:cylinder_wheel xyz="0 0 0" rpy="${PI/2} 0 0" radius="${wheel_radius}" length="${wheel_length}" mass="${wheel_mass}"/>
+</link>
+<joint name="front_left_wheel_joint" type="continuous">
+    <parent link="front_left_wheel_holder"/>
+    <child link="front_left_wheel"/>
+    <origin xyz="0 ${wheel_length/2 + profile_radius} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="${max_effort}" velocity="${max_velocity}"/>
+</joint>
+
+<link name="rear_left_wheel">
+    <xacro:cylinder_wheel xyz="0 0 0" rpy="${PI/2} 0 0" radius="${wheel_radius}" length="${wheel_length}" mass="${wheel_mass}"/>
+</link>
+<joint name="rear_left_wheel_joint" type="continuous">
+    <parent link="rear_left_wheel_holder"/>
+    <child link="rear_left_wheel"/>
+    <origin xyz="0 ${wheel_length/2 + profile_radius} 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="${max_effort}" velocity="${max_velocity}"/>
+</joint>
+
+<link name="imu_link">
+    <xacro:cylinder xyz="0 0 0" rpy="0 0 0" radius="0.01" length="0.02" mass="0.1"/>
+</link>
+<joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+</joint>
+
+<link name="gps_link">
+    <xacro:cylinder xyz="0 0 0" rpy="0 0 0" radius="0.01" length="0.02" mass="0.1"/>
+</link>
+<joint name="gps_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="gps_link"/>
+    <origin xyz="0.05 0 0" rpy="0 0 0"/>
+</joint>
+
+<link name="shoot_platform">
+    <xacro:rect_prism xyz="0 0 0" rpy="0 0 0" width="${shoot_platform_width}" height="${shoot_platform_height}" length="${shoot_platform_length}" mass="1.5"/>
+</link>
+<joint name="shoot_platform_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="shoot_platform"/>
+    <origin xyz="${base_length/2 - shoot_platform_length/2 - 2*profile_radius - shoot_platform_offset} 0 ${base_height/2 + shoot_platform_height/2}" rpy="0 0 0"/>
+</joint>
+
+<link name="shoot_camera_holder">
+    <xacro:cylinder xyz="0 0 0" rpy="0 0 0" radius="${profile_radius}" length="${shoot_camera_holder_length}" mass="10"/>
+</link>
+
+<joint name="shoot_camera_holder_joint" type="revolute">
+    <parent link="shoot_platform"/>
+    <child link="shoot_camera_holder"/>
+    <origin xyz="${shoot_platform_length/2} 0 ${shoot_platform_height/2 + shoot_camera_holder_length/2}" rpy="0 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit lower="${-PI/2}" upper="${PI/2}" effort="100.0" velocity="5.0"/>
+    <dynamics damping="10.0" friction="1.0"/>
+</joint>
+
+<link name="shoot_camera">
+    <xacro:rect_prism xyz="0 0 0" rpy="0 0 0" width="${camera_width}" height="${camera_height}" length="${camera_length}" mass="4"/>
+</link>
+
+<!-- Shooting camera initial orientation will be set later-->
+<joint name="shoot_camera_joint" type="revolute">
+    <parent link="shoot_camera_holder"/>
+    <child link="shoot_camera"/>
+    <origin xyz="0 0 ${shoot_camera_holder_length/2 + camera_height/2}" rpy="0 ${shoot_camera_tilt} 0"/>
+    <axis xyz="0 -1 0"/>
+    <limit lower="${-PI/2}" upper="${PI/2}" effort="100.0" velocity="5.0"/>
+    <!-- <dynamics damping="10.0" friction="1.0"/> -->
+</joint>
+
+<link name="shoot_laser">
+    <xacro:cylinder xyz="0 0 0" rpy="0 0 0" radius="${shoot_laser_radius}" length="${shoot_laser_length}" mass="0.7"/>
+</link>
+
+<joint name="shoot_laser_joint" type="fixed">
+    <parent link="shoot_camera"/>
+    <child link="shoot_laser"/>
+    <origin xyz="0 0 ${camera_height/2 + shoot_laser_radius}" rpy="${PI} ${-PI/2} 0"/>
+</joint>
+
+<link name="front_camera_holder">
+    <xacro:cylinder xyz="0 0 0" rpy="0 0 0" radius="${profile_radius}" length="${front_camera_holder_length}" mass="0.8"/>
+</link>
+<joint name="front_camera_holder_joint" type="fixed">
+    <parent link="shoot_platform"/>
+    <child link="front_camera_holder"/>
+    <origin xyz="${shoot_platform_length/2 + profile_radius + shoot_platform_offset} 0 ${front_camera_holder_length/2 - shoot_platform_height/2}"/>
+</joint>
+
+<link name="front_camera">
+    <xacro:rect_prism xyz="0 0 0" rpy="0 0 0" width="${camera_width}" height="${camera_height}" length="${camera_length}" mass="0.2"/>
+</link>
+
+<joint name="front_camera_joint" type="fixed">
+    <parent link="front_camera_holder"/>
+    <child link="front_camera"/>
+    <origin xyz="0 0 ${front_camera_holder_length/2 + camera_height}" rpy="0 ${front_camera_tilt} 0"/>
+</joint>
+
+
+<link name="rear_camera_holder">
+    <xacro:cylinder xyz="0 0 0" rpy="0 0 0" radius="${profile_radius}" length="${rear_camera_holder_length}" mass="0.8"/>
+</link>
+<joint name="rear_camera_holder_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="rear_camera_holder"/>
+    <origin xyz="${-base_length/2 + profile_radius} 0 ${rear_camera_holder_length/2 + base_height/2}"/>
+</joint>
+
+<link name="rear_camera">
+    <xacro:rect_prism xyz="0 0 0" rpy="0 0 0" width="${camera_width}" height="${camera_height}" length="${camera_length}" mass="0.2"/>
+</link>
+
+<joint name="rear_camera_joint" type="fixed">
+    <parent link="rear_camera_holder"/>
+    <child link="rear_camera"/>
+    <origin xyz="0 0 ${rear_camera_holder_length/2 + camera_height/2}" rpy="0 ${-PI} 0"/>
+</joint>
+
+</robot>
+<!-- <link name="right_camera_holder">
+    <xacro:cylinder xyz="0 0 ${-camera_holder_length/2}" rpy="0 0 0" radius="${profile_radius}" length="${camera_holder_length}" mass="${holder_mass}"/>
+    </link>
+    <joint name="right_camera_holder_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_camera_holder"/>
+        <origin xyz="${-base_length/2 + profile_radius} ${-base_width/2 + profile_radius} ${camera_holder_length + base_height/2}" rpy="0 0 0"/>
+        </joint>
+        
+        <link name="right_camera">
+            <xacro:rect_prism xyz="0 0 0" rpy="0 0 0" width="${camera_width}" height="${camera_height}" length="${camera_length}" mass="0.2"/>
+            </link>
+            
+            <joint name="right_camera_joint" type="fixed">
+    <parent link="right_camera_holder"/>
+    <child link="right_camera"/>
+    <origin xyz="0 0 0" rpy="0 ${camera_tilt} 0"/>
+    </joint>
+    
+    <link name="left_camera_holder">
+        <xacro:cylinder xyz="0 0 ${-camera_holder_length/2}" rpy="0 0 0" radius="${profile_radius}" length="${camera_holder_length}" mass="${holder_mass}"/>
+        </link>
+        <joint name="left_camera_holder_joint" type="fixed">
+            <parent link="base_link"/>
+            <child link="left_camera_holder"/>
+    <origin xyz="${-base_length/2 + profile_radius} ${base_width/2 - profile_radius} ${camera_holder_length + base_height/2}" rpy="0 0 0"/>
+</joint>
+
+<link name="left_camera">
+    <xacro:rect_prism xyz="0 0 0" rpy="0 0 0" width="${camera_width}" height="${camera_height}" length="${camera_length}" mass="0.2"/>
+</link>
+
+<joint name="left_camera_joint" type="fixed">
+    <parent link="left_camera_holder"/>
+    <child link="left_camera"/>
+    <origin xyz="0 0 0" rpy="0 ${camera_tilt} 0"/>
+</joint> -->
+
+
+<!-- <link name="front_camera_holder">
+    <xacro:cylinder xyz="0 0 ${-front_camera_holder_length/2}" rpy="0 0 0" radius="${profile_radius}" length="${front_camera_holder_length}" mass="0.8"/>
+</link>
+<joint name="front_camera_holder_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_camera_holder"/>
+    <origin xyz="${base_length/2 - profile_radius} 0 ${front_camera_holder_length + base_height/2}"/>
+</joint> -->
+
+<!-- <link name="front_camera">
+    <xacro:rect_prism xyz="0 0 0" rpy="0 0 0" width="${camera_width}" height="${camera_height}" length="${camera_length}" mass="0.2"/>
+</link>
+
+<joint name="front_camera_joint" type="fixed">
+    <parent link="laser_link"/>
+    <child link="front_camera"/>
+    <origin xyz="${front_camera_width/2 -laser_radius} 0 ${-laser_length/2 - camera_height/2 -0.015}" rpy="0 0.682 0"/>
+</joint> -->

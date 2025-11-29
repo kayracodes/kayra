@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="https://www.wiki.ros.org/xacro">
+<gazebo>
+    <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
+        <robot_param>robot_description</robot_param>
+        <robot_param_node>robot_state_publisher</robot_param_node>
+        <parameters>$(find ika_controller)/config/ika_controllers.yaml</parameters>
+    </plugin>
+</gazebo>
+
+<gazebo reference="front_right_wheel">
+    <material>Gazebo/Black</material>
+</gazebo>
+<gazebo reference="front_left_wheel">
+    <material>Gazebo/Black</material>
+</gazebo>
+<gazebo reference="rear_right_wheel">
+    <material>Gazebo/Black</material>
+</gazebo>
+<gazebo reference="rear_left_wheel">
+    <material>Gazebo/Black</material>
+</gazebo>
+
+<gazebo reference="shoot_platform">
+    <material>Gazebo/Grey</material>
+</gazebo>
+
+<gazebo reference="shoot_camera_holder">
+    <material>Gazebo/Black</material>
+</gazebo>
+
+<gazebo>
+  <plugin name="imu_controller" filename="libhector_gazebo_ros_imu.so">
+    <robotNamespace>/</robotNamespace>
+    <updateRate>30.0</updateRate>
+    <bodyName>base_link</bodyName>
+    <!--frameId>imu_link</frameId-->
+    <topicName>imu/data</topicName>
+    <accelDrift>0.03 0.03 0.03</accelDrift>
+    <accelGaussianNoise>0.03 0.03 0.03</accelGaussianNoise>
+    <rateDrift>0.03 0.03 0.03</rateDrift>
+    <rateGaussianNoise>0.03 0.03 0.03</rateGaussianNoise>
+    <headingDrift>0.03</headingDrift>
+    <headingGaussianNoise>0.03</headingGaussianNoise>
+  </plugin>
+</gazebo>
+
+<gazebo>
+  <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
+    <updateRate>3.0</updateRate>
+    <robotNamespace>/</robotNamespace>
+    <bodyName>gps_link</bodyName>
+    <frameId>gps_link</frameId>
+    <topicName>gps/fix</topicName>
+    <velocityTopicName>gps/vel</velocityTopicName>
+    <referenceLatitude>42.67994364119384</referenceLatitude>  
+    <referenceLongitude>-83.2027446955107</referenceLongitude>
+    <referenceAltitude>0.0</referenceAltitude>
+    <referenceHeading>0.0</referenceHeading>
+    <gaussianNoise>0.01 0.01 0.01</gaussianNoise> <!-- this is std. dev. not var.-->
+    <drift>0.01 0.01 0.01</drift>
+  </plugin>
+</gazebo>
+
+<gazebo reference="shoot_camera">
+  <sensor type="camera" name="shoot_camera">
+    <update_rate>5.0</update_rate>
+    <camera name="shoot_camera">
+      <horizontal_fov>1.15</horizontal_fov>
+      <image>
+        <width>1920</width>
+        <height>1080</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.05</near>
+        <far>30</far>
+      </clip>
+      <noise>
+        <type>gaussian</type>
+        <mean>0.0</mean>
+        <stddev>0.007</stddev>
+      </noise>
+    </camera>
+    <visualize>true</visualize>
+    <plugin name="shoot_camera_controller" filename="libgazebo_ros_camera.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>0.0</updateRate>
+      <cameraName>shoot_camera</cameraName>
+      <imageTopicName>camera_raw_image</imageTopicName>
+      <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+      <frameName>shoot_camera</frameName>
+      <hackBaseline>0.07</hackBaseline>
+      <distortionK1>0.0</distortionK1>
+      <distortionK2>0.0</distortionK2>
+      <distortionK3>0.0</distortionK3>
+      <distortionT1>0.0</distortionT1>
+      <distortionT2>0.0</distortionT2>
+    </plugin>
+  </sensor>
+</gazebo>
+
+<gazebo reference="front_camera">
+  <sensor type="camera" name="front_camera">
+    <update_rate>10.0</update_rate>
+    <camera name="front_camera">
+      <horizontal_fov>1.15</horizontal_fov>
+      <image>
+        <width>320</width>
+        <height>240</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.02</near>
+        <far>25</far>
+      </clip>
+      <noise>
+        <type>gaussian</type>
+        <mean>0.0</mean>
+        <stddev>0.007</stddev>
+      </noise>
+    </camera>
+    <visualize>true</visualize>
+    <plugin name="front_camera_controller" filename="libgazebo_ros_camera.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>0.0</updateRate>
+      <cameraName>front_camera</cameraName>
+      <imageTopicName>front_camera_raw_image</imageTopicName>
+      <cameraInfoTopicName>front_camera_info</cameraInfoTopicName>
+      <frameName>front_camera</frameName>
+      <hackBaseline>0.07</hackBaseline>
+      <distortionK1>0.0</distortionK1>
+      <distortionK2>0.0</distortionK2>
+      <distortionK3>0.0</distortionK3>
+      <distortionT1>0.0</distortionT1>
+      <distortionT2>0.0</distortionT2>
+    </plugin>
+  </sensor>
+</gazebo>
+
+
+<gazebo reference="rear_camera">
+  <sensor type="camera" name="rear_camera">
+    <update_rate>4.0</update_rate>
+    <camera name="rear_camera">
+      <horizontal_fov>0.9</horizontal_fov>
+      <image>
+        <width>640</width>
+        <height>480</height>
+        <format>R8G8B8</format>
+      </image>
+      <clip>
+        <near>0.02</near>
+        <far>15</far>
+      </clip>
+      <noise>
+        <type>gaussian</type>
+        <mean>0.0</mean>
+        <stddev>0.007</stddev>
+      </noise>
+    </camera>
+    <visualize>true</visualize>
+    <plugin name="rear_camera_controller" filename="libgazebo_ros_camera.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>0.0</updateRate>
+      <cameraName>rear_camera</cameraName>
+      <imageTopicName>rear_camera_raw_image</imageTopicName>
+      <cameraInfoTopicName>rear_camera_info</cameraInfoTopicName>
+      <frameName>rear_camera</frameName>
+      <hackBaseline>0.07</hackBaseline>
+      <distortionK1>0.0</distortionK1>
+      <distortionK2>0.0</distortionK2>
+      <distortionK3>0.0</distortionK3>
+      <distortionT1>0.0</distortionT1>
+      <distortionT2>0.0</distortionT2>
+    </plugin>
+  </sensor>
+</gazebo>
+</robot>

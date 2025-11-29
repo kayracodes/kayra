@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="engebeli_arazi">
+    <static>true</static>
+    <link name="engebeli_arazi_link">
+      <visual name="engebeli_arazi_visual">
+        <geometry>
+          <mesh>
+            <uri>model://engebeli_arazi/meshes/engebeli_arazi.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="engebeli_arazi_collision">
+        <geometry>
+          <mesh>
+            <uri>model://engebeli_arazi/meshes/engebeli_arazi.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

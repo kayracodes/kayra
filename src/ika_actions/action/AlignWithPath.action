@@ -1,0 +1,23 @@
+# Goal - no goal parameters needed for path alignment
+---
+# Result - final status and message
+uint8 status
+string message
+# Status constants
+uint8 STATUS_SUCCEEDED = 0
+uint8 STATUS_FAILED = 1
+uint8 STATUS_TIMEOUT = 2
+uint8 STATUS_CANCELLED = 3
+uint8 STATUS_NO_PATH = 4
+---
+# Feedback - current status, elapsed time and angular error
+uint8 status
+string message
+float32 elapsed_time
+float32 angular_error
+# Status constants (same as result)
+uint8 STATUS_IDLE = 0
+uint8 STATUS_SEARCHING = 1
+uint8 STATUS_ALIGNING = 2
+uint8 STATUS_ALIGNED = 3
+uint8 STATUS_FAILED = 4

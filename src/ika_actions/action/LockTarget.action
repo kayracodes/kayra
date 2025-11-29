@@ -1,0 +1,10 @@
+# Goal - angular tolerance for target locking
+float32 angular_tolerance
+---
+# Result - success or failure
+bool success
+string message
+---
+# Feedback - current tilt and pan errors
+float32 tilt_loss
+float32 pan_loss

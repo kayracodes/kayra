@@ -1,0 +1,32 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/opt/ros/jazzy/include/**",
+        "/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins/include/**",
+        "/home/zer/ika_ws/src/ika_actions/include/**",
+        "/home/zer/ika_ws/src/ika_controller/include/**",
+        "/home/zer/ika_ws/src/ika_description/include/**",
+        "/home/zer/ika_ws/src/ika_filters/include/**",
+        "/home/zer/ika_ws/src/ika_launch/include/**",
+        "/home/zer/ika_ws/src/ika_msgs/include/**",
+        "/home/zer/ika_ws/src/ika_nav/include/**",
+        "/home/zer/ika_ws/src/ika_utils/include/**",
+        "/home/zer/ika_ws/src/ika_vision/include/**",
+        "/home/zer/ika_ws/src/rake_core/include/**",
+        "/home/zer/ika_ws/src/rake_msgs/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ros2",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++17"
+    }
+  ],
+  "version": 4
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="bariyer">
+    <static>true</static>
+    <link name="bariyer_link">
+      <visual name="bariyer_visual">
+        <geometry>
+          <mesh>
+            <uri>model://bariyer/meshes/bariyer.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="bariyer_collision">
+        <geometry>
+          <mesh>
+            <uri>model://bariyer/meshes/bariyer.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

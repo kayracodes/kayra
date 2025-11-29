@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="zemin">
+    <static>true</static>
+    <link name="zemin_link">
+      <visual name="zemin_visual">
+        <geometry>
+          <mesh>
+            <uri>model://zemin/meshes/zemin.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="zemin_collision">
+        <geometry>
+          <mesh>
+            <uri>model://zemin/meshes/zemin.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
+

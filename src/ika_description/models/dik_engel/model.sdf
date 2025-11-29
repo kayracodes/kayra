@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="dik_engel">
+    <static>true</static>
+    <link name="dik_engel_link">
+      <visual name="dik_engel_visual">
+        <geometry>
+          <mesh>
+            <uri>model://dik_engel/meshes/dik_engel.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="dik_engel_collision">
+        <geometry>
+          <mesh>
+            <uri>model://dik_engel/meshes/dik_engel.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="tabela">
+    <static>true</static>
+    <link name="tabela_link">
+      <visual name="tabela_visual">
+        <geometry>
+          <mesh>
+            <uri>model://tabela/meshes/tabelalar.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="tabelalar_collision">
+        <geometry>
+          <mesh>
+            <uri>model://tabela/meshes/tabelalar.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
+

@@ -1,0 +1,133 @@
+{
+  "align_with_path_server": {
+    "kp_angular": 10.0,
+    "kd_angular": 0.2,
+    "angle_tolerance": 0.025,
+    "max_execution_time": 10.0,
+    "max_angular_velocity": 3.0,
+    "min_angular_velocity": 1.0,
+    "control_frequency": 10.0,
+    "control_period": 0.1
+  },
+  "event_detector": {},
+  "vision_transformer": {
+    "points_src": [
+      [46, 0],
+      [274, 0],
+      [320, 240],
+      [0, 240]
+    ],
+    "points_dst": [
+      [0, 0],
+      [150, 0],
+      [90, 150],
+      [60, 150]
+    ],
+    "unknown_inflation_right": [
+      [75, 0],
+      [75, 75],
+      [45, 75]
+    ],
+    "unknown_inflation_left": [
+      [0, 0],
+      [0, 75],
+      [30, 75]
+    ],
+    "unknown_right": [
+      [150, 0],
+      [150, 150],
+      [90, 150]
+    ],
+    "unknown_left": [
+      [0, 0],
+      [0, 150],
+      [60, 150]
+    ],
+    "blur_iters": 2,
+    "blur_kernel": [3, 3],
+    "default_inflation_radius": 1.2,
+    "sharp_turn_inflation_radius": 1.8,
+    "cautious_inflation_radius": 1.2,
+    "min_line_length": 18,
+    "max_line_gap": 5,
+    "max_detection_angle": 25
+  },
+  "path_planner": {
+    "goal_tolerance": 0.5,
+    "goal_cost_threshold": 70,
+    "x_coeff": 2.0,
+    "y_coeff": 1.1,
+    "depth_coeff": 1.2,
+    "goal_search_depth": 75,
+    "goal_selection_cost_coeff": 1.2,
+    "path_find_cost_coeff": 8.5,
+    "path_find_distance_coeff": 2.8,
+    "motion_primitives": [
+      [1, 0],
+      [-1, 0],
+      [0, 1],
+      [0, -1],
+      [1, 1],
+      [1, -1],
+      [-1, 1],
+      [-1, -1]
+    ]
+  },
+  "ramp_alignment_server": {
+    "kp": 12.0,
+    "kd": 0.1,
+    "angle_tolerance": 0.008726646259971648,
+    "max_execution_time": 13.0,
+    "max_angular_velocity": 3.0,
+    "min_angular_velocity": 1.2
+  },
+  "mission_planner": {
+    "retry_failed_actions": false,
+    "max_retries": 3,
+    "critical_action_types": ["set_system_state"],
+    "recoverable_errors": ["timeout", "no_path"],
+    "sign_detection_cooldown": 2.0
+  },
+  "odom_node": { "wheel_radius": 0.125, "wheel_separation": 0.92 },
+  "path_tracker": {
+    "L": 0.95,
+    "def_kp_angular": 7.0,
+    "def_kd_angular": 0.5,
+    "def_max_angular_velocity": 3.0,
+    "def_max_linear_velocity": 0.8,
+    "def_min_linear_velocity": 0.2,
+    "waypoint_tolerance": 0.1,
+    "next_waypoints": 13,
+    "backward_speed": -0.2,
+    "map_resolution": 0.08,
+    "map_width": 75,
+    "map_height": 75,
+    "map_origin_x": 0.0,
+    "map_origin_y": -3.0,
+    "recovery_aggression_coeff": 1.1,
+    "recovery_rotation_time": 3.0,
+    "slow_auto_max_speed": 0.5,
+    "fast_auto_max_speed": 1.1,
+    "cautious_auto_max_speed": 0.7,
+    "sharp_turn_kp_angular": 9.0,
+    "sharp_turn_kd_angular": 0.3
+  },
+  "joy_controller": {
+    "control_command_topic": "/ika_controller/control_command",
+    "max_linear_velocity": 0.8,
+    "max_angular_velocity_simulation": 3.0,
+    "max_angular_velocity_practice": 1.6,
+    "lock_target_tolerance": 0.6
+  },
+  "sign_detector": {
+    "model_path": "/home/rosgeek/Documents/ika_ws/install/ika_vision/share/ika_vision/ai_models/sign_model_v4.pt",
+    "confidence_threshold": 0.55,
+    "image_topic": "/shoot_camera/image_raw",
+    "signs_topic": "/ika_vision/road_signs",
+    "debug_img_topic": "/sign_detector/debug_image",
+    "inference_size": 832,
+    "img_width": 1920,
+    "img_height": 1080
+  },
+  "igvc_broadcast_node": {}
+}

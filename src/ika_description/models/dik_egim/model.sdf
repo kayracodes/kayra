@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="dik_egim">
+    <static>true</static>
+    <link name="dik_egim_link">
+      <visual name="dik_egim_visual">
+        <geometry>
+          <mesh>
+            <uri>model://dik_egim/meshes/dik_egim.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="dik_egim_collision">
+        <geometry>
+          <mesh>
+            <uri>model://dik_egim/meshes/dik_egim.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

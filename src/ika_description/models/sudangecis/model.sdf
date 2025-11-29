@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="sudangecis">
+    <static>true</static>
+    <link name="sudangecis_link">
+      <visual name="sudangecis_visual">
+        <geometry>
+          <mesh>
+            <uri>model://sudangecis/meshes/sudangecis.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="sudangecis_collision">
+        <geometry>
+          <mesh>
+            <uri>model://sudangecis/meshes/sudangecis.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

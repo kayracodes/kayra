@@ -1,0 +1,250 @@
+[0.064s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'list', '-p', '--base-paths', '/home/zer/ika_ws/src', '--log-base', '/dev/null']
+[0.064s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='list', build_base='build', ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['/home/zer/ika_ws/src', '--log-base', '/dev/null'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], topological_order=False, names_only=False, paths_only=True, topological_graph=False, topological_graph_dot=False, topological_graph_density=False, topological_graph_legend=False, topological_graph_dot_cluster=False, topological_graph_dot_include_skipped=False, mixin_files=None, mixin=None, verb_parser=<colcon_mixin.mixin.mixin_argument.MixinArgumentDecorator object at 0x73457f1cf650>, verb_extension=<colcon_package_information.verb.list.ListVerb object at 0x73457f82ae70>, main=<bound method ListVerb.main of <colcon_package_information.verb.list.ListVerb object at 0x73457f82ae70>>, mixin_verb=('list',))
+[0.088s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.088s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.088s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.088s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.088s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.088s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/zer/ika_ws/src', '/home/zer/ika_ws/src/--log-base', '/dev/null'
+[0.088s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extensions ['ignore', 'ignore_ament_install']
+[0.088s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extension 'ignore'
+[0.088s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extension 'ignore_ament_install'
+[0.088s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extensions ['colcon_pkg']
+[0.088s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extension 'colcon_pkg'
+[0.088s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extensions ['colcon_meta']
+[0.088s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extension 'colcon_meta'
+[0.088s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extensions ['ros']
+[0.088s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extension 'ros'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extensions ['cmake', 'python']
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extension 'cmake'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extension 'python'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extensions ['python_setup_py']
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src) by extension 'python_setup_py'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extensions ['ignore', 'ignore_ament_install']
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extension 'ignore'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extension 'ignore_ament_install'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extensions ['colcon_pkg']
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extension 'colcon_pkg'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extensions ['colcon_meta']
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extension 'colcon_meta'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extensions ['ros']
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extension 'ros'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extensions ['cmake', 'python']
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extension 'cmake'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extension 'python'
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extensions ['python_setup_py']
+[0.104s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo) by extension 'python_setup_py'
+[0.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo) by extensions ['ignore', 'ignore_ament_install']
+[0.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo) by extension 'ignore'
+[0.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo) by extension 'ignore_ament_install'
+[0.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo) by extensions ['colcon_pkg']
+[0.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo) by extension 'colcon_pkg'
+[0.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo) by extensions ['colcon_meta']
+[0.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo) by extension 'colcon_meta'
+[0.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo) by extensions ['ros']
+[0.105s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo) by extension 'ros'
+[0.106s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/hector_gazebo/hector_gazebo' with type 'ros.ament_cmake' and name 'hector_gazebo'
+[0.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins) by extensions ['ignore', 'ignore_ament_install']
+[0.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins) by extension 'ignore'
+[0.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins) by extension 'ignore_ament_install'
+[0.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins) by extensions ['colcon_pkg']
+[0.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins) by extension 'colcon_pkg'
+[0.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins) by extensions ['colcon_meta']
+[0.106s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins) by extension 'colcon_meta'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins) by extensions ['ros']
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins) by extension 'ros'
+[0.107s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_plugins' with type 'ros.ament_cmake' and name 'hector_gazebo_plugins'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extensions ['ignore', 'ignore_ament_install']
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extension 'ignore'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extension 'ignore_ament_install'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extensions ['colcon_pkg']
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extension 'colcon_pkg'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extensions ['colcon_meta']
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extension 'colcon_meta'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extensions ['ros']
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extension 'ros'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extensions ['cmake', 'python']
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extension 'cmake'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extension 'python'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extensions ['python_setup_py']
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera) by extension 'python_setup_py'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extensions ['ignore', 'ignore_ament_install']
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extension 'ignore'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extension 'ignore_ament_install'
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extensions ['colcon_pkg']
+[0.107s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extension 'colcon_pkg'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extensions ['colcon_meta']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extension 'colcon_meta'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extensions ['ros']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extension 'ros'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extensions ['cmake', 'python']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extension 'cmake'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extension 'python'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extensions ['python_setup_py']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include) by extension 'python_setup_py'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extensions ['ignore', 'ignore_ament_install']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extension 'ignore'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extension 'ignore_ament_install'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extensions ['colcon_pkg']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extension 'colcon_pkg'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extensions ['colcon_meta']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extension 'colcon_meta'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extensions ['ros']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extension 'ros'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extensions ['cmake', 'python']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extension 'cmake'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extension 'python'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extensions ['python_setup_py']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/include/hector_gazebo_thermal_camera) by extension 'python_setup_py'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extensions ['ignore', 'ignore_ament_install']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extension 'ignore'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extension 'ignore_ament_install'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extensions ['colcon_pkg']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extension 'colcon_pkg'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extensions ['colcon_meta']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extension 'colcon_meta'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extensions ['ros']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extension 'ros'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extensions ['cmake', 'python']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extension 'cmake'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extension 'python'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extensions ['python_setup_py']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_thermal_camera/src) by extension 'python_setup_py'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds) by extensions ['ignore', 'ignore_ament_install']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds) by extension 'ignore'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds) by extension 'ignore_ament_install'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds) by extensions ['colcon_pkg']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds) by extension 'colcon_pkg'
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds) by extensions ['colcon_meta']
+[0.108s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds) by extension 'colcon_meta'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds) by extensions ['ros']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds) by extension 'ros'
+[0.109s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/hector_gazebo/hector_gazebo_worlds' with type 'ros.ament_cmake' and name 'hector_gazebo_worlds'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extensions ['ignore', 'ignore_ament_install']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extension 'ignore'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extension 'ignore_ament_install'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extensions ['colcon_pkg']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extension 'colcon_pkg'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extensions ['colcon_meta']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extension 'colcon_meta'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extensions ['ros']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extension 'ros'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extensions ['cmake', 'python']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extension 'cmake'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extension 'python'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extensions ['python_setup_py']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/hector_gazebo/hector_sensors_gazebo) by extension 'python_setup_py'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_actions) by extensions ['ignore', 'ignore_ament_install']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_actions) by extension 'ignore'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_actions) by extension 'ignore_ament_install'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_actions) by extensions ['colcon_pkg']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_actions) by extension 'colcon_pkg'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_actions) by extensions ['colcon_meta']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_actions) by extension 'colcon_meta'
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_actions) by extensions ['ros']
+[0.109s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_actions) by extension 'ros'
+[0.110s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/ika_actions' with type 'ros.ament_cmake' and name 'ika_actions'
+[0.110s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.110s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_controller) by extension 'ignore'
+[0.110s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_controller) by extension 'ignore_ament_install'
+[0.110s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_controller) by extensions ['colcon_pkg']
+[0.110s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_controller) by extension 'colcon_pkg'
+[0.110s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_controller) by extensions ['colcon_meta']
+[0.110s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_controller) by extension 'colcon_meta'
+[0.110s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_controller) by extensions ['ros']
+[0.110s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_controller) by extension 'ros'
+[0.111s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/ika_controller' with type 'ros.ament_cmake' and name 'ika_controller'
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_description) by extensions ['ignore', 'ignore_ament_install']
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_description) by extension 'ignore'
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_description) by extension 'ignore_ament_install'
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_description) by extensions ['colcon_pkg']
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_description) by extension 'colcon_pkg'
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_description) by extensions ['colcon_meta']
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_description) by extension 'colcon_meta'
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_description) by extensions ['ros']
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_description) by extension 'ros'
+[0.111s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/ika_description' with type 'ros.ament_cmake' and name 'ika_description'
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_filters) by extensions ['ignore', 'ignore_ament_install']
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_filters) by extension 'ignore'
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_filters) by extension 'ignore_ament_install'
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_filters) by extensions ['colcon_pkg']
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_filters) by extension 'colcon_pkg'
+[0.111s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_filters) by extensions ['colcon_meta']
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_filters) by extension 'colcon_meta'
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_filters) by extensions ['ros']
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_filters) by extension 'ros'
+[0.112s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/ika_filters' with type 'ros.ament_cmake' and name 'ika_filters'
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_launch) by extensions ['ignore', 'ignore_ament_install']
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_launch) by extension 'ignore'
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_launch) by extension 'ignore_ament_install'
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_launch) by extensions ['colcon_pkg']
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_launch) by extension 'colcon_pkg'
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_launch) by extensions ['colcon_meta']
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_launch) by extension 'colcon_meta'
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_launch) by extensions ['ros']
+[0.112s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_launch) by extension 'ros'
+[0.113s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/ika_launch' with type 'ros.ament_cmake' and name 'ika_launch'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_msgs) by extension 'ignore'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_msgs) by extension 'ignore_ament_install'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_msgs) by extensions ['colcon_pkg']
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_msgs) by extension 'colcon_pkg'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_msgs) by extensions ['colcon_meta']
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_msgs) by extension 'colcon_meta'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_msgs) by extensions ['ros']
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_msgs) by extension 'ros'
+[0.113s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/ika_msgs' with type 'ros.ament_cmake' and name 'ika_msgs'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_nav) by extensions ['ignore', 'ignore_ament_install']
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_nav) by extension 'ignore'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_nav) by extension 'ignore_ament_install'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_nav) by extensions ['colcon_pkg']
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_nav) by extension 'colcon_pkg'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_nav) by extensions ['colcon_meta']
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_nav) by extension 'colcon_meta'
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_nav) by extensions ['ros']
+[0.113s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_nav) by extension 'ros'
+[0.114s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/ika_nav' with type 'ros.ament_cmake' and name 'ika_nav'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_utils) by extensions ['ignore', 'ignore_ament_install']
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_utils) by extension 'ignore'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_utils) by extension 'ignore_ament_install'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_utils) by extensions ['colcon_pkg']
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_utils) by extension 'colcon_pkg'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_utils) by extensions ['colcon_meta']
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_utils) by extension 'colcon_meta'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_utils) by extensions ['ros']
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_utils) by extension 'ros'
+[0.114s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/ika_utils' with type 'ros.ament_cmake' and name 'ika_utils'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_vision) by extensions ['ignore', 'ignore_ament_install']
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_vision) by extension 'ignore'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_vision) by extension 'ignore_ament_install'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_vision) by extensions ['colcon_pkg']
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_vision) by extension 'colcon_pkg'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_vision) by extensions ['colcon_meta']
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_vision) by extension 'colcon_meta'
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_vision) by extensions ['ros']
+[0.114s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/ika_vision) by extension 'ros'
+[0.115s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/ika_vision' with type 'ros.ament_cmake' and name 'ika_vision'
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/log) by extensions ['ignore', 'ignore_ament_install']
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/log) by extension 'ignore'
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/log) ignored
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_core) by extensions ['ignore', 'ignore_ament_install']
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_core) by extension 'ignore'
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_core) by extension 'ignore_ament_install'
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_core) by extensions ['colcon_pkg']
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_core) by extension 'colcon_pkg'
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_core) by extensions ['colcon_meta']
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_core) by extension 'colcon_meta'
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_core) by extensions ['ros']
+[0.115s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_core) by extension 'ros'
+[0.116s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/rake_core' with type 'ros.ament_cmake' and name 'rake_core'
+[0.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_msgs) by extensions ['ignore', 'ignore_ament_install']
+[0.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_msgs) by extension 'ignore'
+[0.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_msgs) by extension 'ignore_ament_install'
+[0.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_msgs) by extensions ['colcon_pkg']
+[0.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_msgs) by extension 'colcon_pkg'
+[0.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_msgs) by extensions ['colcon_meta']
+[0.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_msgs) by extension 'colcon_meta'
+[0.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_msgs) by extensions ['ros']
+[0.116s] Level 1:colcon.colcon_core.package_identification:_identify(/home/zer/ika_ws/src/rake_msgs) by extension 'ros'
+[0.116s] DEBUG:colcon.colcon_core.package_identification:Package '/home/zer/ika_ws/src/rake_msgs' with type 'ros.ament_cmake' and name 'rake_msgs'
+[0.116s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults

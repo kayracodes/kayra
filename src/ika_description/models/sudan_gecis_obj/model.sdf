@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="sudan_gecis_obj">
+    <static>true</static>
+    <link name="sudan_gecis_obj_link">
+      <visual name="sudan_gecis_obj_visual">
+        <geometry>
+          <mesh>
+            <uri>model://sudan_gecis_obj/meshes/sudan_gecis.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="sudan_gecis_obj_collision">
+        <geometry>
+          <mesh>
+            <uri>model://sudan_gecis_obj/meshes/sudan_gecis.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

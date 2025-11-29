@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="tabelalar">
+    <static>true</static>
+    <link name="tabelalar_link">
+      <visual name="tabelalar_visual">
+        <geometry>
+          <mesh>
+            <uri>model://tabelalar/meshes/tabelalar.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="tabelalar_collision">
+        <geometry>
+          <mesh>
+            <uri>model://tabelalar/meshes/tabelalar.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
+

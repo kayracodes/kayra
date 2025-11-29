@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="bariyer_obj">
+    <static>true</static>
+    <link name="bariyer_obj_link">
+      <visual name="zemin_obj_visual">
+        <geometry>
+          <mesh>
+            <uri>model://bariyer_obj/meshes/bariyer.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="zemin_obj_collision">
+        <geometry>
+          <mesh>
+            <uri>model://bariyer_obj/meshes/bariyer.obj</uri>
+            <scale>0.001 0.001 0.001</scale> 
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>

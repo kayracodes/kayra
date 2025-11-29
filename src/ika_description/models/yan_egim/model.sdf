@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="yan_egim">
+    <static>true</static>
+    <link name="yan_egim_link">
+      <visual name="yan_egim_visual">
+        <geometry>
+          <mesh>
+            <uri>model://yan_egim/meshes/yan_egim.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      <collision name="yan_egim_collision">
+        <geometry>
+          <mesh>
+            <uri>model://yan_egim/meshes/yan_egim.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+  </model>
+</sdf>
+

@@ -1,0 +1,75 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+    use_sim_time: true
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+    
+    simple_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+
+    shoot_camera_controller:
+      type: position_controllers/JointGroupPositionController
+
+simple_velocity_controller:
+  ros__parameters:
+    joints:
+      - front_right_wheel_joint 
+      - front_left_wheel_joint
+      - rear_right_wheel_joint
+      - rear_left_wheel_joint
+    gains:
+      front_right_wheel_joint:
+        p: 1.2
+        i: 0.02
+        d: 0.01
+        i_clamp: 3.0
+
+      front_left_wheel_joint:
+        p: 1.2
+        i: 0.02
+        d: 0.01
+        i_clamp: 3.0
+
+      rear_right_wheel_joint:
+        p: 1.2
+        i: 0.02
+        d: 0.01
+        i_clamp: 3.0
+
+      rear_left_wheel_joint:
+        p: 1.2
+        i: 0.02
+        d: 0.01
+        i_clamp: 3.0
+
+
+
+shoot_camera_controller:
+  ros__parameters:
+    joints:
+      - shoot_camera_joint
+      - shoot_camera_holder_joint
+    
+    # # PID gains for position control
+    gains:
+      shoot_camera_joint:
+        p: 0.0000001    # Proportional gain
+        i: 0.0    # Integral gain
+        d: 0.001  # Derivative gain
+        # i_clamp: 10.0 # Integral windup limit
+        
+      shoot_camera_holder_joint:
+        p: 0.0000001    # Proportional gain
+        i: 0.0     # Integral gain  
+        d: 0.001     # Derivative gain
+        # i_clamp: 10.0 # Integral windup limit
+        
+    # Allow small position errors before considering goal reached
+    # constraints:
+    #   goal_time: 0.0  # No time constraint
+    #   shoot_camera_joint:
+    #     goal: 0.2
+    #   shoot_camera_holder_joint:
+    #     goal: 0.2
